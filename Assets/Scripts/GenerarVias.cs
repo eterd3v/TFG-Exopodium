@@ -123,6 +123,8 @@ public class GenerarVias : MonoBehaviour
             if (lastEleccion)           iLastRecta.Eliminar();
             else                        iLastCurva.Eliminar();
 
+            Debug.DrawRay(vias[i-1].transform.position, vias[i].transform.position - vias[i-1].transform.position, Color.red, 600); // Ver el trazo de la curva en el editor. Expira en 60 segs.
+
             // ACTUALIZAR VARIABLES ============================================================
             lastEleccion = eleccion;
             iLastRecta = iRecta;

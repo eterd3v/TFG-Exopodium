@@ -991,6 +991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 642538776}
   - component: {fileID: 642538778}
+  - component: {fileID: 642538779}
   m_Layer: 0
   m_Name: Autovias
   m_TagString: Untagged
@@ -1021,7 +1022,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642538775}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b35a0ff833f41ff4eb6bb889cc8eef44, type: 3}
   m_Name: 
@@ -1043,6 +1044,29 @@ MonoBehaviour:
   maxTramoRecta: 13
   minTramoDiagonal: 5
   maxTramoDiagonal: 9
+--- !u!114 &642538779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642538775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d7f9bb3f16f0940899fb4de9ab6211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  semilla: 0
+  numCirculosPerlin: 8
+  divisiones: 120
+  baseRadius: 1
+  minGenRadius: 0
+  maxGenRadius: 3
+  minGenPosA: 0
+  maxGenPosA: 50
+  minGenPosB: 0
+  maxGenPosB: 50
+  prefab: {fileID: 2225614941694218349, guid: f693a2b525eb7794c8c44171b57f7c78, type: 3}
 --- !u!1001 &672254451
 PrefabInstance:
   m_ObjectHideFlags: 0
