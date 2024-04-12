@@ -18,13 +18,13 @@ public class GenerarViasPerlin : MonoBehaviour
     public int numCirculosPerlin = 5;
     public int divisiones = 120;
 
-    public float baseRadius;
     public float minGenRadius,maxGenRadius;
-    public float minGenPosA, maxGenPosA;
-    public float minGenPosB, maxGenPosB;
+    public float minSemiejeA, maxSemiejeA;
+    public float minSemiejeB, maxSemiejeB;
+    public float minAmplitud, maxAmplitud;
 
     void Start() {
-        circulos = new float [3, numCirculosPerlin];
+        circulos = new float [4, numCirculosPerlin];
         Random.InitState(semilla);
         EcuacionesCirculos();
         GenerarPerlin();
@@ -32,9 +32,10 @@ public class GenerarViasPerlin : MonoBehaviour
 
     void EcuacionesCirculos(){
         for (int i = 0; i < numCirculosPerlin; i++) {                       // Cada columna representa una función
-            circulos[0,i] = Random.Range(minGenPosA, maxGenPosA);           //a <-> x
-            circulos[1,i] = Random.Range(minGenPosB, maxGenPosB);           //b <-> z
+            circulos[0,i] = Random.Range(minSemiejeA, maxSemiejeA);           //a <-> x
+            circulos[1,i] = Random.Range(minSemiejeB, maxSemiejeB);           //b <-> z
             circulos[2,i] = Random.Range(minGenRadius, maxGenRadius);       //r
+            circulos[3,i] = Random.Range(minAmplitud, maxAmplitud);       //amplitud perlin
         }
 
         float anguloSecciones = 360.0f / numCirculosPerlin;
@@ -58,11 +59,12 @@ public class GenerarViasPerlin : MonoBehaviour
 
     private Vector3[] posicionesFinales;
 
-    Vector3 elipseXZ(float gamma, float posA, float posB, float radio) {
-        gamma *= Mathf.Deg2Rad;
-        float x_ =  Mathf.Cos(gamma) * radio; // PARA QUE SEA ELIPSE TENDRÍA QUE MULTIPLICARSE POR OTRO VALOR (SEMIEJE)
-        float z_ = -Mathf.Sin(gamma) * radio;
-        return new Vector3(x_ + posA, 0.0f, z_ + posB); // CORRECTO!
+    Vector3 elipseXZ(float alfa, float semiEjeA, float semiEjeB, float radio, float gamma, float amplitud) {
+        alfa *= Mathf.Deg2Rad;
+        float ruido = Mathf.Sin(gamma) * amplitud;
+        float x_ =  Mathf.Cos(alfa) * semiEjeA * (radio + ruido);
+        float z_ = -Mathf.Sin(alfa) * semiEjeB * (radio + ruido);
+        return new Vector3(x_, 0.0f, z_); // CORRECTO!
     }
 
     // https://www.lanshor.com/ruido-perlin/
@@ -77,16 +79,15 @@ public class GenerarViasPerlin : MonoBehaviour
 
         float alfa = 0.0f; 
         for (int i = 0; i < divisiones; i++) {
-            posicionesFinales[i] = elipseXZ(alfa, uno, uno, baseRadius);
+            //posicionesFinales[i] = elipseXZ(alfa, uno, uno, baseRadius, 0.0f, 0.0f);
             alfa += incremento;
         }
 
         for (int i = 0; i < numCirculosPerlin; i++) {
-            float cPow =  Mathf.Pow(2,(float)i);
+            float cPow =  Mathf.Pow(2,(float)(i));
             alfa = 0.0f;
             for (int j = 0; j < divisiones; j++) {
-                //if ((float)i * anguloSecciones < alfa && alfa <= (float)(i+1) * anguloSecciones)
-                posicionesFinales[j] += elipseXZ(alfa, circulos[0,i], circulos[1,i], circulos[2,i]);
+                posicionesFinales[j] += elipseXZ(alfa, circulos[0,i], circulos[1,i], circulos[2,i], alfa , circulos[3,i] * cPow);
                 alfa += incremento;
             }
 
@@ -109,13 +110,16 @@ public class GenerarViasPerlin : MonoBehaviour
 
         for (int i = 0; i < numCirculosPerlin; i++)
         {
-            Vector3 last = elipseXZ(0, circulos[0,i], circulos[1,i], circulos[2,i]);
+            Vector3 last = elipseXZ(0, circulos[0,i], circulos[1,i], circulos[2,i], 0.0f, circulos[3,i]);
             Vector3 now;
+
+            float cPow =  Mathf.Pow(2,(float)i);
+            
             for (int k = 1; k < divisiones; k++) {
                 //GameObject go = Instantiate(prefab, this.transform);
                 //go.transform.Translate(posicionesFinales[k].x, 0.0f, posicionesFinales[k].z);
                 float alpha = (float)k * (360.0f/(float)divisiones);
-                now = elipseXZ(alpha, circulos[0,i], circulos[1,i], circulos[2,i]);
+                now = elipseXZ(alpha, circulos[0,i], circulos[1,i], circulos[2,i], alpha*cPow , circulos[3,i] / cPow);
                 Debug.DrawRay(last, now - last, col, 600); // Ver el trazo de la curva en el editor. Expira en 60 segs.
                 last = now;
             }
