@@ -1057,14 +1057,12 @@ MonoBehaviour:
   viasGenerar: 144
   vias: []
   tipoGeneracion: 0
-  incrementoRectas: 2
-  incrementoDiagonales: 1
-  inicioIncremento: 0.33
-  finIncremento: 0.8
-  minTramoRecta: 5
-  maxTramoRecta: 13
-  minTramoDiagonal: 5
-  maxTramoDiagonal: 9
+  incrementoRectas: 1
+  incrementoDiagonales: 2
+  inicioIncremento: 0
+  finIncremento: 0
+  maxTramoRecta: 5
+  maxTramoDiagonal: 5
 --- !u!114 &642538779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,6 +2346,10 @@ PrefabInstance:
     - target: {fileID: 5891885792700479006, guid: f693a2b525eb7794c8c44171b57f7c78, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507794216204569242, guid: f693a2b525eb7794c8c44171b57f7c78, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9191848795115616569, guid: f693a2b525eb7794c8c44171b57f7c78, type: 3}
       propertyPath: m_StaticEditorFlags

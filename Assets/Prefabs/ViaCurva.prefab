@@ -670,6 +670,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2607674552265036278}
     m_Modifications:
+    - target: {fileID: 1327763057509436267, guid: e6ae250bdb866764cad7b366c001a394, type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 4621e4ddc62e6844d9bb7a649c190269, type: 2}
     - target: {fileID: 2808825514040545262, guid: e6ae250bdb866764cad7b366c001a394, type: 3}
       propertyPath: m_Name
       value: SueloMalla
@@ -736,6 +740,10 @@ PrefabInstance:
       propertyPath: esTecho
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1327763057509436267, guid: e6ae250bdb866764cad7b366c001a394, type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 4621e4ddc62e6844d9bb7a649c190269, type: 2}
     - target: {fileID: 2808825514040545262, guid: e6ae250bdb866764cad7b366c001a394, type: 3}
       propertyPath: m_Name
       value: TechoMalla

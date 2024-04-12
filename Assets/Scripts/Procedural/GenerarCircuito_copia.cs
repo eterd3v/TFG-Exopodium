@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
+using System.Runtime.Serialization.Formatters.Binary; // Para los guardar estado del random
 
-public class GenerarCircuito : MonoBehaviour
+public class GenerarCircuitoBacktrack : MonoBehaviour
 {   // Crear vías ya conectadas en lugar de crear vías separadas, para luego conectarlas
-
+/*
     // PREFABS A USAR
     public GameObject prefabFinal, prefabRecto, prefabCurva;
 
@@ -37,11 +38,13 @@ public class GenerarCircuito : MonoBehaviour
     
     // Start is called before the first frame update
     void Start() {
-        if (!usarSemilla) {
+
+        if (!usarSemilla){
             rand = new Random();
             semilla = rand.Next();
         }
         rand = new Random(semilla);
+
         vias = new List<GameObject>();
         if (maxTramoRecta <= 0)      maxTramoRecta = rand.Next(1,5);
         if (maxTramoDiagonal <= 0)   maxTramoDiagonal = rand.Next(1,5);
@@ -51,49 +54,50 @@ public class GenerarCircuito : MonoBehaviour
         generarVias();
     }
 
-    void generarVias() {
+    Random guardarRandom(Random rand_){
+        // https://stackoverflow.com/questions/8188844/is-there-a-way-to-grab-the-actual-state-of-system-random/8188878#8188878
+        BinaryFormatter formateador = new BinaryFormatter(); 
+        MemoryStream stream = new MemoryStream();
+        formateador.Serialize(stream, rand_);
+        return (Random) formateador.Deserialize(stream);
+    }
 
-        // Variable para optimizar métodos GetRecta y GetCurva
+    bool backtrack(int i){
+        if (i >= viasGenerar)
+            return true; // && rotacionFinal && posicionFinal; // De momento en true a secas
+        else{
+            // Guardar estado del Random actual
+            Random randEstadoPrevio = guardarRandom(rand);
+
+            pickVia(i, ref eleccion, ref curva, lastEleccion);  
+            generarVia(i);
+            if (backtrack(i+1)){
+                
+                return true;
+            }else{
+                vias.RemoveAt(i);   // Elimina de la lista
+                rand = randEstadoPrevio;  // Restaurar estado del Random
+            }
+        }
+        return false;
+    }
+
+    void generarVia(int i){
         InfoRecta iRecta=null, iLastRecta=null; 
         InfoCurva iCurva=null, iLastCurva=null;
-
         Vector3 x_z = Vector3.zero; // Trasl. x, Rot. Y, Trasl. z
         float rotacion = 0.0f;
-        
-        // TRUE: recta,  FALSE: curva. 
-        // Guarda la eleccion de la vía a instanciar y la anterior ya instanciada
         bool eleccion=true, lastEleccion=eleccion, curva=false;
-
         string tipo = "a";          // Tipo de la vía actual a instanciar
-
-        // Generar una primera via para el correcto funcionamiento del algoritmo (vias[i-1])
-        generaVia(x_z, 0.0f, tipo, ref iRecta, ref iCurva);
         iLastRecta = iRecta;
 
-        for (int i = 1; i < viasGenerar - 1; ++i) {
-            // Determinar la eleccion y si hay curva
-            pickVia(i, ref eleccion, ref curva, lastEleccion);  
-            // Generar posición, rotacion y tipo. Después no se pueden alterar
-            xyzNuevaVia(ref x_z, ref rotacion, ref tipo, curva, eleccion, lastEleccion, vias[i-1]);
-            // Generar la via
-            generaVia(x_z, rotacion, tipo, ref iRecta, ref iCurva);              
-            // Si es una curva, coincidir paredes de la via actual y la anterior
-            if (curva)
-                coincidirParedes(tipo, eleccion, lastEleccion, iRecta, iLastRecta, iCurva, iLastCurva);
-            // Eliminar Transforms y objetos que no van a servir más
-            if (lastEleccion)   iLastRecta.Eliminar();
-            else                iLastCurva.Eliminar();
-            // Actualizar variables
-            lastEleccion = eleccion;
-            iLastRecta = iRecta;
-            iLastCurva = iCurva;
-        }
-
-        x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el de la última iteracion
-        generaFinal(x_z, rotacion); // Situa el último prefab en vias[viasGenerar-1]
-
-        if (eleccion)           iRecta.Eliminar();
-        else                    iCurva.Eliminar();
+        xyzNuevaVia(ref x_z, ref rotacion, ref tipo, curva, eleccion, lastEleccion, vias[i-1]);
+        generaVia(x_z, rotacion, tipo, ref iRecta, ref iCurva);              
+        if (curva)
+            coincidirParedes(tipo, eleccion, lastEleccion, iRecta, iLastRecta, iCurva, iLastCurva);
+        lastEleccion = eleccion;
+        iLastRecta = iRecta;
+        iLastCurva = iCurva;
     }
 
     void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, bool curva, bool eleccion, bool lastEleccion, GameObject lastVia ){
@@ -101,33 +105,21 @@ public class GenerarCircuito : MonoBehaviour
             tipo = eleccion ? "a" : "A";
             x_z = lastVia.transform.Find(tipo).position;
         }else{
-
-            // PARA DETERMINAR SI UNA VÍA ESTÁ A PUNTO DE SER MAL COLOCADA
             bool limitado = rotacion >= 90.0f || rotacion <= -90.0f;
-
-            // ELEGIR TIPO DE VIA
-            if (limitado) { // Si está a 90 o -90 grados, no puede tomar ciertos tipos => Se incluye en la búsqueda 
+            /*if (limitado) { // Si está a 90 o -90 grados, no puede tomar ciertos tipos => Se incluye en la búsqueda 
                 bool anguloPos =        rotacion > 0.0f;
                 if (anguloPos)          tipo = eleccion ? "c" : "C";
                 else                    tipo = eleccion ? "b" : "B";
             }else{
-                if (lastEleccion)       tipo = rand.Next()%2 == 0 ? "B" : "C";
-                else                    tipo = rand.Next()%2 == 0 ? "b" : "c";
-            }
+                
+            }*//*
+            if (lastEleccion)       tipo = rand.Next()%2 == 0 ? "B" : "C";
+            else                    tipo = rand.Next()%2 == 0 ? "b" : "c";
 
-            // Da el tipo correspondiente a-A, b-B, c-C, según si la via es recta o diagonal
             string tipoCorrespondiente = eleccion ? tipo.ToUpper() : tipo.ToLower();
-
-            // GameObject de la posición correspondiente con la vía i
             Transform correspondiente = lastVia.transform.Find(tipoCorrespondiente);
-
-            // POSICIONAR
             x_z = correspondiente.position;
-
-            // ROTACIÓN EN BASE A LA PIEZA CORRESPONDIENTE DE LA ANTERIOR VÍA
             rotacion += correspondiente.localEulerAngles.y; // Rotación local, no global
-            if (limitado)   
-                rotacion = 0.0f;  // Para que el circuito crezca o se mantenga en el eje X
         }
     }
 
@@ -141,7 +133,7 @@ public class GenerarCircuito : MonoBehaviour
         }   
                                 // MODIFICAR VIA ACTUAL PARA DEJARLA COMO UNA VIA NORMAL (después de i-1)
         if (eleccion)           iRecta.SetTipo("a");
-        else                     iCurva.SetTipo("A"); 
+        else                    iCurva.SetTipo("A"); 
     }
 
     bool getCurva(string tipo1, string tipo2) {
@@ -196,39 +188,18 @@ public class GenerarCircuito : MonoBehaviour
 
         if (eleccion) {     // recta
             if (tramoRecta-- <= 0) {
-                tramoRecta = restablecerTramo(i, 1, maxTramoRecta, incrementoRectas);
-                eleccion = rand.Next() % 2 == 0;
-                //mutacionEleccion();
+                tramoRecta = rand.Next(1, maxTramoRecta);
+                eleccion = !eleccion;
             }
         } else {            // diagonal
             if (tramoDiagonal-- <= 0) {
-                tramoDiagonal = restablecerTramo(i, 1, maxTramoDiagonal,  incrementoDiagonales);
-                eleccion = rand.Next() % 2 == 0;
-                //mutacionEleccion();
+                tramoDiagonal = rand.Next(1, maxTramoDiagonal);
+                eleccion = !eleccion;
             }
         }
 
         curva = eleccion != lastEleccion; // Se detecta la vía i empieza un cambio (curva)
 
     }
-
-    int restablecerTramo(int i, int min, int max, int incremento){
-        float porcentaje = (float) i / (float) viasGenerar;
-        if (inicioIncremento <= porcentaje && porcentaje <= finIncremento) {
-            min += incremento;
-            max += incremento;
-        }
-        return rand.Next(min, max);
-    }
-
-    void mutacionEleccion(ref bool eleccion){ // Mutación de la elección bajo una probabilidad
-        if (pMutacionEleccion < randFloat())  {
-            eleccion = !eleccion;
-        }
-    }
-
-    float randFloat(){
-        return (float)rand.Next(999999) / 1000000.0f;
-    }
-
+*/
 }

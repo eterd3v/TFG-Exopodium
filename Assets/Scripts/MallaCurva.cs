@@ -29,10 +29,10 @@ public class MallaCurva : MonoBehaviour
 
         // Textura
         newUV[0] = new Vector2(0.5f,0.0f);
-        newUV[1] = new Vector2(1.0f,0.5f);
-        newUV[2] = new Vector2(1.0f,1.0f);
+        newUV[1] = new Vector2(0.0f,0.5f);
+        newUV[2] = new Vector2(0.0f,1.0f);
         newUV[3] = new Vector2(0.5f,1.0f);
-        newUV[4] = new Vector2(0.0f,0.5f);
+        newUV[4] = new Vector2(1.0f,0.5f);
         newUV[5] = new Vector2(0.5f,0.5f);
 
 
