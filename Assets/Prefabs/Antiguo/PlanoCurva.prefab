@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1327763057509436267}
   - component: {fileID: 1661107514286177158}
   - component: {fileID: 4692710374222391203}
+  - component: {fileID: 1062691221474100558}
   m_Layer: 0
   m_Name: PlanoCurva
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ae9459f426f863e4eb92932c5442774c, type: 2}
+  esTecho: 0
 --- !u!33 &1661107514286177158
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -97,3 +99,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1062691221474100558
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808825514040545262}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
