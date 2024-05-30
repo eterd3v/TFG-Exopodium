@@ -62,6 +62,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
         bool eleccion=true, lastEleccion=eleccion, curva=false;
 
         string tipo = "a";          // Tipo de la vía actual a instanciar
+        string lastTipoCurva = "NA";// Último tipo escogido en una curva
 
         // Generar una primera via para el correcto funcionamiento del algoritmo (vias[i-1])
         generaVia(x_z, 0.0f, tipo, ref iRecta);
@@ -71,9 +72,9 @@ public class GenerarCircuitoHex : MonoBehaviour {
             // Determinar la eleccion y si hay curva
             pickVia(i, ref eleccion, ref curva, lastEleccion);  
             // Generar posición, rotacion y tipo. Después no se pueden alterar
-            xyzNuevaVia(ref x_z, ref rotacion, ref tipo, curva, eleccion, lastEleccion, vias[i-1]);
+            xyzNuevaVia(ref x_z, ref rotacion, ref tipo, ref lastTipoCurva, curva, vias[i-1].transform);
             // Generar la via
-            generaVia(x_z, rotacion, tipo, ref iRecta);              
+            generaVia(x_z, rotacion, tipo, ref iRecta);    
             // Si es una curva, coincidir paredes de la via actual y la anterior
             if (curva)
                 coincidirParedes(tipo, eleccion, lastEleccion, iRecta, iLastRecta);
@@ -85,37 +86,30 @@ public class GenerarCircuitoHex : MonoBehaviour {
             iLastRecta = iRecta;
         }
 
-        x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el de la última iteracion
+        x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el tipo de la última iteracion del bucle
         generaFinal(x_z, rotacion); // Situa el último prefab en vias[viasGenerar-1]
 
         iRecta.Eliminar();
     }
 
-    void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, bool curva, bool eleccion, bool lastEleccion, GameObject lastVia ){
-        if (!curva) {           // Es una recta
+    void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, ref string lastTipoCurva, bool curva, Transform lastVia ){
+        if (!curva) {           // Es una recta. La rotación no cambia, solo la posición.
             tipo = "a";
-            x_z = lastVia.transform.Find(tipo).position;
-        }else{
-            // PARA DETERMINAR SI UNA VÍA ESTÁ A PUNTO DE SER MAL COLOCADA
-            bool limitado = rotacion >= 59.999f || rotacion <= -59.999f;
+            x_z = lastVia.Find(tipo).position;
+        } else {
+            if (rotacion == 0)                  tipo = rand.Next()%2 ==  0  ? "b" : "c";
+            else                                tipo = lastTipoCurva == "b" ? "c" : "b";
 
-            // ELEGIR TIPO DE VIA
-            if (limitado) {             // Si está a 60 o -60 grados, no puede tomar ciertos tipos => Se incluye en la búsqueda 
-                tipo = rotacion > 0.0f ? "c" : "b";
-            } else {
-                tipo = rand.Next()%2 == 0 ? "b" : "c";
-            }
-
-            // GameObject de la posición correspondiente con la vía i
-            Transform correspondiente = lastVia.transform.Find(tipo);
-
-            // POSICIONAR
+            Transform correspondiente = lastVia.Find(tipo);
             x_z = correspondiente.position;
+            rotacion += correspondiente.localEulerAngles.y;
 
-            // ROTACIÓN EN BASE A LA PIEZA CORRESPONDIENTE DE LA ANTERIOR VÍA
-            rotacion += correspondiente.localEulerAngles.y; // Rotación local, no global
-            if (limitado)   
-                rotacion = 0.0f;  // Para que el circuito crezca o se mantenga en el eje X
+            if (rotacion > 60.0f)               rotacion -= 360.0f;         // Corrección del ángulo a un rango cerrado [-60,60]
+            else if (rotacion < -60.0f)         rotacion += 360.0f;
+            else                                rotacion = 0;
+    
+            if (rotacion != 0)
+                lastTipoCurva = tipo;
         }
     }
 
@@ -137,7 +131,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
     void generaVia(Vector3 x_z, float y_, string tipo, ref InfoRecta iRecta) {
         GameObject go = Instantiate(prefHex, transformReferencia);  // <- Siempre va a ser una recta
-        iRecta = GetRecta(go);      // Asigno a variable de clase
+        iRecta = GetRecta(go);
         iRecta.SetTipo(tipo);
         go.name = "V" + nVia++;
         go.transform.SetParent(this.transform);
@@ -161,26 +155,18 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
         if (eleccion) {     // recta
             if (tramoRecta-- <= 0) {
-                tramoRecta = restablecerTramo(i, 1, maxTramoRecta);
+                tramoRecta = rand.Next(1, maxTramoRecta);
                 eleccion = rand.Next() % 2 == 0;
             }
         } else {            // diagonal
             if (tramoDiagonal-- <= 0) {
-                tramoDiagonal = restablecerTramo(i, 1, maxTramoDiagonal);
+                tramoDiagonal = rand.Next(1, maxTramoDiagonal);
                 eleccion = rand.Next() % 2 == 0;
             }
         }
 
         curva = eleccion != lastEleccion; // Se detecta la vía i empieza un cambio (curva)
 
-    }
-
-    int restablecerTramo(int i, int min, int max ){
-        return rand.Next(min, max);
-    }
-
-    float randFloat(){
-        return (float)rand.Next(999999) / 1000000.0f;
     }
 
 }

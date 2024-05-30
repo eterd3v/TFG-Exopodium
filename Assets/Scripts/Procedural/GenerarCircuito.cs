@@ -30,7 +30,6 @@ public class GenerarCircuito : MonoBehaviour
     public int maxTramoDiagonal;
 
     // VARIABLES PRIVADAS PARA LA GENERACIÓN
-    private float pMutacionEleccion;
     private int contador;
     private int tramoRecta;
     private int tramoDiagonal;
@@ -47,7 +46,6 @@ public class GenerarCircuito : MonoBehaviour
         if (maxTramoDiagonal <= 0)   maxTramoDiagonal = rand.Next(1,5);
         tramoRecta =    rand.Next(1, maxTramoRecta);
         tramoDiagonal = rand.Next(1, maxTramoDiagonal);
-        pMutacionEleccion = randFloat();
         generarVias();
     }
 
@@ -198,13 +196,11 @@ public class GenerarCircuito : MonoBehaviour
             if (tramoRecta-- <= 0) {
                 tramoRecta = restablecerTramo(i, 1, maxTramoRecta, incrementoRectas);
                 eleccion = rand.Next() % 2 == 0;
-                //mutacionEleccion();
             }
         } else {            // diagonal
             if (tramoDiagonal-- <= 0) {
                 tramoDiagonal = restablecerTramo(i, 1, maxTramoDiagonal,  incrementoDiagonales);
                 eleccion = rand.Next() % 2 == 0;
-                //mutacionEleccion();
             }
         }
 
@@ -219,16 +215,6 @@ public class GenerarCircuito : MonoBehaviour
             max += incremento;
         }
         return rand.Next(min, max);
-    }
-
-    void mutacionEleccion(ref bool eleccion){ // Mutación de la elección bajo una probabilidad
-        if (pMutacionEleccion < randFloat())  {
-            eleccion = !eleccion;
-        }
-    }
-
-    float randFloat(){
-        return (float)rand.Next(999999) / 1000000.0f;
     }
 
 }
