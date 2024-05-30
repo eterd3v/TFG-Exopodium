@@ -14,8 +14,6 @@ public class NaveMovimiento : MonoBehaviour {
     Vector2 inputMoverse, inputRotar;
 
     [SerializeField]
-    Camera mainCamara;
-    Transform rotCamara;
     Vector3 v3Camara;
 
     [SerializeField]
@@ -25,7 +23,6 @@ public class NaveMovimiento : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
-        rotCamara = mainCamara.transform;
     }
     
     // Update is called once per frame

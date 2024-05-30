@@ -35,12 +35,14 @@ public class MallaHex : MonoBehaviour
         newVertices[0] = new Vector3( 0,0,0 );
 
         // Textura
-        newUV[0] = new Vector2(0.5f,0.0f);
-        newUV[1] = new Vector2(0.0f,0.5f);
-        newUV[2] = new Vector2(0.0f,1.0f);
-        newUV[3] = new Vector2(0.5f,1.0f);
-        newUV[4] = new Vector2(1.0f,0.5f);
-        newUV[5] = new Vector2(0.5f,0.5f);
+        float aux1 = 3.0f/3.5f;
+        float aux2 = 0.5f/3.5f;
+        newUV[1] = new Vector2(aux1,0.0f);
+        newUV[2] = new Vector2(1.0f,0.5f);
+        newUV[3] = new Vector2(aux1,1.0f);
+        newUV[4] = new Vector2(0.0f,1.0f);
+        newUV[5] = new Vector2(aux2,0.5f);
+        newUV[0] = new Vector2(0.0f,0.0f);
 
         // Topología. Confg 1
         newTriangles[0] = 0;
@@ -67,12 +69,12 @@ public class MallaHex : MonoBehaviour
         MeshRenderer mr = GetComponent<MeshRenderer>();
         mr.material = material;
         mr.enabled = !esTecho;
-        MeshCollider mc = GetComponent<MeshCollider>();
-        mc.sharedMesh = malla;
+        // MeshCollider mc = GetComponent<MeshCollider>(); <-- No hace falta, se ha sustituido por un plano que sigue al objetivo todo el rato
+        // mc.sharedMesh = malla;
 
         transform.Rotate(180,0,0);
         transform.Translate(-1.5f*l,0,-5);  // Ajuste específico
-        // En z es -5 por la separación de la mitad del ancho de la pista
+        // En z es -5 por la separación de la mitad del ancho de la pista -> (-h)
         // En x lo suficiencte para situar la pieza en el centro, y como 
         // la longitud total son 3*l, pues el centro será (3*l)/2 
     }

@@ -191,21 +191,18 @@ public class GenerarCircuito : MonoBehaviour
     }
 
     void pickVia(int i, ref bool eleccion, ref bool curva, bool lastEleccion) {
-
-        if (eleccion) {     // recta
+        if (eleccion)       // recta
             if (tramoRecta-- <= 0) {
-                tramoRecta = restablecerTramo(i, 1, maxTramoRecta, incrementoRectas);
+                tramoRecta = rand.Next(1, maxTramoRecta);
                 eleccion = rand.Next() % 2 == 0;
             }
-        } else {            // diagonal
+        else              // diagonal
             if (tramoDiagonal-- <= 0) {
-                tramoDiagonal = restablecerTramo(i, 1, maxTramoDiagonal,  incrementoDiagonales);
+                tramoDiagonal = rand.Next(1, maxTramoDiagonal);
                 eleccion = rand.Next() % 2 == 0;
             }
-        }
 
         curva = eleccion != lastEleccion; // Se detecta la vía i empieza un cambio (curva)
-
     }
 
     int restablecerTramo(int i, int min, int max, int incremento){
