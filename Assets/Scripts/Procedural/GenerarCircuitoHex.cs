@@ -20,6 +20,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
     // VIAS A GENERAR
     public int viasGenerar;
     public List<GameObject> vias;
+    public List<Transform> tVias;
     private int nVia = 0;
 
     // PARÁMETROS DE GENERACIÓN
@@ -52,7 +53,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
     void generarVias() {
 
         // Variable para optimizar método GetRecta
-        InfoRecta iRecta=null, iLastRecta=null;
+        InfoHex iHex=null, iLastHex =null;
 
         Vector3 x_z = Vector3.zero; // Trasl. x, Rot. Y, Trasl. z
         float rotacion = 0.0f;
@@ -62,11 +63,11 @@ public class GenerarCircuitoHex : MonoBehaviour {
         bool eleccion=true, lastEleccion=eleccion, curva=false;
 
         string tipo = "a";          // Tipo de la vía actual a instanciar
-        string lastTipoCurva = "NA";// Último tipo escogido en una curva
+        string lastTipoCurva = "NA";       // Último tipo escogido en una curva
 
         // Generar una primera via para el correcto funcionamiento del algoritmo (vias[i-1])
-        generaVia(x_z, 0.0f, tipo, ref iRecta);
-        iLastRecta = iRecta;
+        generaVia(x_z, 0.0f, tipo, ref iHex);
+        iLastHex  = iHex;
 
         for (int i = 1; i < viasGenerar - 1; ++i) {
             // Determinar la eleccion y si hay curva
@@ -74,22 +75,21 @@ public class GenerarCircuitoHex : MonoBehaviour {
             // Generar posición, rotacion y tipo. Después no se pueden alterar
             xyzNuevaVia(ref x_z, ref rotacion, ref tipo, ref lastTipoCurva, curva, vias[i-1].transform);
             // Generar la via
-            generaVia(x_z, rotacion, tipo, ref iRecta);    
+            generaVia(x_z, rotacion, tipo, ref iHex);    
             // Si es una curva, coincidir paredes de la via actual y la anterior
             if (curva)
-                coincidirParedes(tipo, eleccion, lastEleccion, iRecta, iLastRecta);
+                coincidirParedes(tipo, eleccion, lastEleccion, iHex, iLastHex );
             // Eliminar Transforms y objetos que no van a servir más
-            iLastRecta.Eliminar();
-            
+            iLastHex.Eliminar();
             // Actualizar variables
             lastEleccion = eleccion;
-            iLastRecta = iRecta;
+            iLastHex = iHex;
         }
 
         x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el tipo de la última iteracion del bucle
         generaFinal(x_z, rotacion); // Situa el último prefab en vias[viasGenerar-1]
 
-        iRecta.Eliminar();
+        iHex.Eliminar();
     }
 
     void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, ref string lastTipoCurva, bool curva, Transform lastVia ){
@@ -113,32 +113,32 @@ public class GenerarCircuitoHex : MonoBehaviour {
         }
     }
 
-    void coincidirParedes(string tipo, bool eleccion, bool lastEleccion, InfoRecta iRecta, InfoRecta iLastRecta){
+    void coincidirParedes(string tipo, bool eleccion, bool lastEleccion, InfoHex iHex, InfoHex iLastHex ){
         if (lastEleccion) {     // Anterior: Recta, Actual: Curva. Aquí b y a son sinónimos
             string modAnt = tipo == "b" ? "c" : "b";
-            iLastRecta.SetTipo(modAnt);
+            iLastHex.SetTipo(modAnt);
         } else {                // Anterior: Curva, Actual: Recta
             string modAnt = tipo == "b" ? "b" : "c";
-            iLastRecta.SetTipo(modAnt); 
+            iLastHex.SetTipo(modAnt); 
         }
-                                
-        iRecta.SetTipo("a");    // MODIFICAR VIA ACTUAL PARA DEJARLA COMO UNA VIA NORMAL (después de i-1)
+        iHex.SetTipo("a");    // MODIFICAR VIA ACTUAL PARA DEJARLA COMO UNA VIA NORMAL (después de i-1)
     }
 
-    InfoRecta GetRecta(GameObject go) { // Internamente en Unity es una operación algo lenta
-        return go.GetComponent<InfoRecta>();
+    InfoHex GetHex(GameObject go) { // Internamente en Unity es una operación algo lenta
+        return go.GetComponent<InfoHex>();
     }
 
-    void generaVia(Vector3 x_z, float y_, string tipo, ref InfoRecta iRecta) {
+    void generaVia(Vector3 x_z, float y_, string tipo, ref InfoHex iHex) {
         GameObject go = Instantiate(prefHex, transformReferencia);  // <- Siempre va a ser una recta
-        iRecta = GetRecta(go);
-        iRecta.SetTipo(tipo);
+        iHex = GetHex(go);
+        iHex.SetTipo(tipo);
         go.name = "V" + nVia++;
         go.transform.SetParent(this.transform);
         go.transform.Translate(x_z);                      // Primero: traslación
         go.transform.Rotate(Vector3.up, y_, Space.Self);  // Segundo: rotación sobre sí mismo en el eje Y
         go.isStatic = true;
         vias.Add(go);
+        tVias.Add(go.transform);
     }
 
     void generaFinal(Vector3 x_z, float y_){
@@ -149,6 +149,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
         nuevaVia.transform.Rotate(0,y_,0);
         nuevaVia.isStatic = true;
         vias.Add(nuevaVia);
+        tVias.Add(nuevaVia.transform);
     }
 
     void pickVia(int i, ref bool eleccion, ref bool curva, bool lastEleccion) {
@@ -168,5 +169,9 @@ public class GenerarCircuitoHex : MonoBehaviour {
         curva = eleccion != lastEleccion; // Se detecta la vía i empieza un cambio (curva)
 
     }
+
+    public Vector3 rotacionPista(int i) {
+        return tVias[i].eulerAngles;
+    } 
 
 }
