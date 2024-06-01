@@ -6,6 +6,8 @@ using Random = System.Random;
 public class GenerarCircuitoHex : MonoBehaviour {   
     // Crear vías ya conectadas en lugar de crear vías separadas, para luego conectarlas
 
+    public NaveMovimiento nave;
+
     // PREFABS A USAR
     public GameObject prefHex;
 
@@ -20,7 +22,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
     // VIAS A GENERAR
     public int viasGenerar;
     public List<GameObject> vias;
-    public List<Transform> tVias;
+    public List<TriggerPista> tVias;
     private int nVia = 0;
 
     // PARÁMETROS DE GENERACIÓN
@@ -130,26 +132,34 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
     void generaVia(Vector3 x_z, float y_, string tipo, ref InfoHex iHex) {
         GameObject go = Instantiate(prefHex, transformReferencia);  // <- Siempre va a ser una recta
+
         iHex = GetHex(go);
         iHex.SetTipo(tipo);
+        iHex.tPista.setRotacion(new Vector3(0,y_,0));
+        iHex.tPista.nm = nave;
+
         go.name = "V" + nVia++;
         go.transform.SetParent(this.transform);
         go.transform.Translate(x_z);                      // Primero: traslación
         go.transform.Rotate(Vector3.up, y_, Space.Self);  // Segundo: rotación sobre sí mismo en el eje Y
         go.isStatic = true;
         vias.Add(go);
-        tVias.Add(go.transform);
+        tVias.Add(iHex.tPista);
     }
 
-    void generaFinal(Vector3 x_z, float y_){
+    void generaFinal(Vector3 x_z, float y_) {
         GameObject nuevaVia = Instantiate(prefHex, transformReferencia);
+
+        InfoHex iHex = GetHex(nuevaVia);
+        iHex.tPista.setRotacion(new Vector3(0,y_,0));
+
         nuevaVia.name = "VFinal";
         nuevaVia.transform.SetParent(this.transform);
         nuevaVia.transform.Translate(x_z.x, 0 ,x_z.z); // El +10 es por la última via recta del bucle
         nuevaVia.transform.Rotate(0,y_,0);
         nuevaVia.isStatic = true;
         vias.Add(nuevaVia);
-        tVias.Add(nuevaVia.transform);
+        tVias.Add(iHex.tPista);
     }
 
     void pickVia(int i, ref bool eleccion, ref bool curva, bool lastEleccion) {
@@ -169,9 +179,5 @@ public class GenerarCircuitoHex : MonoBehaviour {
         curva = eleccion != lastEleccion; // Se detecta la vía i empieza un cambio (curva)
 
     }
-
-    public Vector3 rotacionPista(int i) {
-        return tVias[i].eulerAngles;
-    } 
 
 }

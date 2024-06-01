@@ -104,8 +104,6 @@ public class MallaHex : MonoBehaviour {
         return check;
     }
 
-
-
     // Update is called once per frame
     void Update()
     {

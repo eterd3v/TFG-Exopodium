@@ -5,6 +5,7 @@ using UnityEngine;
 public class InfoHex : MonoBehaviour
 {
 
+    public TriggerPista tPista;
     public string tipo;
     public GameObject izq, der;
     public GameObject a, b, c;
