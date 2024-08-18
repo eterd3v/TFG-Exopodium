@@ -80,7 +80,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
             generaVia(x_z, rotacion, tipo, ref iHex);    
             // Si es una curva, coincidir paredes de la via actual y la anterior
             if (curva)
-                coincidirParedes(tipo, eleccion, lastEleccion, iHex, iLastHex );
+                coincidirParedes(tipo,iHex, iLastHex );
             // Eliminar Transforms y objetos que no van a servir más
             iLastHex.Eliminar();
             // Actualizar variables
@@ -115,14 +115,8 @@ public class GenerarCircuitoHex : MonoBehaviour {
         }
     }
 
-    void coincidirParedes(string tipo, bool eleccion, bool lastEleccion, InfoHex iHex, InfoHex iLastHex ){
-        if (lastEleccion) {     // Anterior: Recta, Actual: Curva. Aquí b y a son sinónimos
-            string modAnt = tipo == "b" ? "c" : "b";
-            iLastHex.SetTipo(modAnt);
-        } else {                // Anterior: Curva, Actual: Recta
-            string modAnt = tipo == "b" ? "b" : "c";
-            iLastHex.SetTipo(modAnt); 
-        }
+    void coincidirParedes(string tipo,InfoHex iHex, InfoHex iLastHex ){
+        iLastHex.SetTipo(tipo == "b" ? "c" : "b"); // La anterior será una via distinta a la actual. b o c 
         iHex.SetTipo("a");    // MODIFICAR VIA ACTUAL PARA DEJARLA COMO UNA VIA NORMAL (después de i-1)
     }
 

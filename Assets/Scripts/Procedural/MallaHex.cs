@@ -7,10 +7,10 @@ public class MallaHex : MonoBehaviour {
     public Material material;
     public bool esTecho;
     public float l = -1;    // Campo que determina la longitud de los triangulos que forman la pieza final
-    float h;
+    public float h;
     public float _2h = -1;
 
-    float sqrt3 = Mathf.Sqrt(3.0f);
+    public static float sqrt3 = Mathf.Sqrt(3f);
 
     int numVertices = 6, numTriangulos = 4;
     Vector3[] newVertices;
@@ -98,10 +98,11 @@ public class MallaHex : MonoBehaviour {
 
     public bool dentroTri(Vector3 P, Vector3 A, Vector3 B, Vector3 C) {
         // Un punto N dentro de un triángulo de puntos (P1, P2, P3), cada punto con x,y,z
-        bool check = dotDentro(A,B,P) >= 0;
-        check &= dotDentro(B,C,P) >= 0;
-        check &= dotDentro(C,A,P) >= 0;
-        return check;
+        if (dotDentro(A,B,P) >= 0) 
+            if (dotDentro(B,C,P) >= 0) 
+                if (dotDentro(C,A,P) >= 0)
+                    return true;
+        return false;
     }
 
     // Update is called once per frame

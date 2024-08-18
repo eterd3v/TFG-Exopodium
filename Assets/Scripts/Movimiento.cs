@@ -18,14 +18,12 @@ public class NaveMovimiento : MonoBehaviour {
     float velCamara = 0.725f;
     
     public CinemachineVirtualCamera cam0;
-    CinemachineTrackedDolly camPath;
 
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         rb.freezeRotation = true;
-        // camPath = (CinemachineTrackedDolly) cam0.GetCinemachineComponent(CinemachineCore.Stage.Body); // Hereda del componente;
     }
 
     // Update is called once per frame
@@ -39,9 +37,6 @@ public class NaveMovimiento : MonoBehaviour {
 
     void FixedUpdate() {
         Vector3 direccion = new Vector3(inputMoverse.y, 0.0f, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
-        
-        //camPath.m_PathPosition += Time.deltaTime * -inputMoverse.x * velCamara;
-        //camPath.m_PathPosition = Mathf.Clamp01(camPath.m_PathPosition);             // Entre 0 y el número máximo de posiciones del raíl de la cámara
         
         rb.AddRelativeForce( direccion * cteVelocidad );
 
@@ -65,9 +60,5 @@ public class NaveMovimiento : MonoBehaviour {
         if (this.transform.position.y <= 10.0f)
             rb.AddForce(Vector3.up * fuerzaSalto);
     }
-
-    Vector3 rotacionPistaActual() {                 // PENDIENTE
-        return this.transform.localEulerAngles;
-    } 
 
 }

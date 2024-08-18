@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.039546248, g: 0.039546248, b: 0.039546248, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.546
@@ -364,7 +364,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1580686722}
-  - {fileID: 4009503597570549988}
   - {fileID: 7268601745643084511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -769,7 +768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -1132,7 +1131,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 84
   m_IsActive: 1
 --- !u!64 &1384052628
 MeshCollider:
@@ -1729,23 +1728,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6053287911009650558}
   m_CullTransparentMesh: 1
---- !u!1 &358107719193311320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4009503597570549988}
-  - component: {fileID: 8941103000488982846}
-  m_Layer: 0
-  m_Name: RailCinemachine_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!223 &1737859180709708192
 Canvas:
   m_ObjectHideFlags: 0
@@ -1784,21 +1766,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7268601745643084511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2585872762620542026
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7485603693471471204}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.06129924, y: -0.9119499, z: 0.14798947, w: 0.377742}
-  m_LocalPosition: {x: 5.8760576, y: -4.4076934, z: 13.909232}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4009503597570549988}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3184738442563109704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,18 +1783,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3214801920764873667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7485603693471471204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3581206904502077727
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1840,22 +1795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4009503597570549988
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358107719193311320}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.06129924, y: 0.9119499, z: -0.14798947, w: 0.377742}
-  m_LocalPosition: {x: -6, y: 7.09, z: 10.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2585872762620542026}
-  m_Father: {fileID: 312743623}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4048349207511345492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1925,8 +1864,9 @@ GameObject:
   - component: {fileID: 7268601745643084511}
   - component: {fileID: 4048349207511345492}
   - component: {fileID: 7268601745643084512}
+  - component: {fileID: 7268601745643084513}
   m_Layer: 0
-  m_Name: CamaraRail_c0
+  m_Name: CamaraVirtual
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,23 +2168,18 @@ MonoBehaviour:
   AutoEnableInputs: 1
   XYAxis: {fileID: -8603822805226329213, guid: 5d720ba7f347a3046a6bf0670e761b5b, type: 3}
   ZAxis: {fileID: 0}
---- !u!1 &7485603693471471204
-GameObject:
+--- !u!114 &7268601745643084513
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2585872762620542026}
-  - component: {fileID: 3214801920764873667}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_GameObject: {fileID: 4296612626069903275}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729aad4491e915a41bda2b8325cf757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7905313554337483671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,8 +2266,8 @@ MonoBehaviour:
     Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 100
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
+    m_AccelTime: 0.2
+    m_DecelTime: 0.05
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -2349,29 +2284,6 @@ MonoBehaviour:
   m_LegacyHeightOffset: 3.4028235e+38
   m_LegacyHeadingBias: 3.4028235e+38
   m_HeadingIsSlave: 0
---- !u!114 &8941103000488982846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358107719193311320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Resolution: 50
-  m_Appearance:
-    pathColor: {r: 0, g: 1, b: 0, a: 1}
-    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    width: 0.2
-  m_Looped: 0
-  m_Waypoints:
-  - position: {x: 0, y: 0.95, z: 0}
-    roll: 0
-  - position: {x: 14.833185, y: 5.4577184, z: 13.817133}
-    roll: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
