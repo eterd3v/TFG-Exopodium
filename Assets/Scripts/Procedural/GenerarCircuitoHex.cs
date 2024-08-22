@@ -36,7 +36,12 @@ public class GenerarCircuitoHex : MonoBehaviour {
     private int contador;
     private int tramoRecta;
     private int tramoDiagonal;
-    
+    public int dificultad = 0; // Niveles de dificutlad: fácil(0), normal(1), dificil(2). Se podría aumentar el número de dificultades
+    public static int maxDificultad = 3; 
+
+    // VECTOR PARA MODIFICAR LAS VÍAS TRAS GENERARLAS
+    InfoHex[] infoVias = null;
+
     // Start is called before the first frame update
     void Start() {
         if (!usarSemilla) {
@@ -49,7 +54,44 @@ public class GenerarCircuitoHex : MonoBehaviour {
         if (maxTramoDiagonal <= 0)   maxTramoDiagonal = rand.Next(1,5);
         tramoRecta =    rand.Next(1, maxTramoRecta);
         tramoDiagonal = rand.Next(1, maxTramoDiagonal);
+
+        dificultad = dificultad % maxDificultad;
+        infoVias = new InfoHex[viasGenerar-2];
         generarVias();
+
+        // Generar los obstáculos y
+        // Eliminar Transforms y objetos que no van a servir más
+
+        for (int i = 0; i < viasGenerar-2; ++i) {
+            InfoHex ihAux = infoVias[i];
+            if (ihAux != null) {
+                if (ihAux.tipo == "a") {    // Solo en tramos rectos
+                    generarObstaculos(ihAux);
+                }
+                ihAux.Eliminar();
+            }
+        }
+
+        infoVias = null;
+
+    }
+
+    void generarObstaculos(InfoHex iHex) {
+
+        // Fácil -> Más dificil que aparezcan obstáculos
+        // Difícil -> Más fácil que aparezcan obstáculos
+        // Inversamente proporcional
+
+        bool probabilidadAceptada = 
+            ((double) (maxDificultad-dificultad) / (double) (maxDificultad+1)) < rand.NextDouble();
+
+        if (probabilidadAceptada) {
+            int dado = rand.Next();
+            if (dado < 0)
+                dado = -dado;
+            iHex.EscogerObstaculoRandom(dado);
+        }
+
     }
 
     void generarVias() {
@@ -64,8 +106,8 @@ public class GenerarCircuitoHex : MonoBehaviour {
         // Guarda la eleccion de la vía a instanciar y la anterior ya instanciada
         bool eleccion=true, lastEleccion=eleccion, curva=false;
 
-        string tipo = "a";          // Tipo de la vía actual a instanciar
-        string lastTipoCurva = "NA";       // Último tipo escogido en una curva
+        string tipo = "a";                  // Tipo de la vía actual a instanciar
+        string lastTipoCurva = "NA";        // Último tipo escogido en una curva
 
         // Generar una primera via para el correcto funcionamiento del algoritmo (vias[i-1])
         generaVia(x_z, 0.0f, tipo, ref iHex);
@@ -78,11 +120,11 @@ public class GenerarCircuitoHex : MonoBehaviour {
             xyzNuevaVia(ref x_z, ref rotacion, ref tipo, ref lastTipoCurva, curva, vias[i-1].transform);
             // Generar la via
             generaVia(x_z, rotacion, tipo, ref iHex);    
+            // Guardar la información de la vía para modificaciones posteriores
+            infoVias[i-1] = iHex;
             // Si es una curva, coincidir paredes de la via actual y la anterior
             if (curva)
-                coincidirParedes(tipo,iHex, iLastHex );
-            // Eliminar Transforms y objetos que no van a servir más
-            iLastHex.Eliminar();
+                coincidirParedes(tipo,iHex, iLastHex);
             // Actualizar variables
             lastEleccion = eleccion;
             iLastHex = iHex;
@@ -91,7 +133,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
         x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el tipo de la última iteracion del bucle
         generaFinal(x_z, rotacion); // Situa el último prefab en vias[viasGenerar-1]
 
-        iHex.Eliminar();
+        iHex.Eliminar();            // Este sería realmente ahora, un iLastHex, ya que está fuera del bucle
     }
 
     void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, ref string lastTipoCurva, bool curva, Transform lastVia ){
@@ -114,6 +156,8 @@ public class GenerarCircuitoHex : MonoBehaviour {
                 lastTipoCurva = tipo;
         }
     }
+
+
 
     void coincidirParedes(string tipo,InfoHex iHex, InfoHex iLastHex ){
         iLastHex.SetTipo(tipo == "b" ? "c" : "b"); // La anterior será una via distinta a la actual. b o c 

@@ -894,7 +894,7 @@ MonoBehaviour:
   prefHex: {fileID: 2225614941694218349, guid: c75c61e1756079845abd17118a588565, type: 3}
   transformReferencia: {fileID: 762615823}
   usarSemilla: 1
-  semilla: 77435075
+  semilla: 0
   viasGenerar: 144
   vias: []
   tVias: []
@@ -905,6 +905,7 @@ MonoBehaviour:
   finIncremento: 0
   maxTramoRecta: 5
   maxTramoDiagonal: 5
+  dificultad: 0
 --- !u!224 &766415757 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4706331573940999817, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
@@ -1260,7 +1261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580686721}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23519196, y: 0.37007567, z: -0.09741971, w: 0.89344174}
+  m_LocalRotation: {x: 0.23519197, y: 0.3700757, z: -0.09741972, w: 0.89344174}
   m_LocalPosition: {x: -10, y: 8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2143,7 +2144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4296612626069903275}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23519196, y: 0.37007567, z: -0.09741971, w: 0.89344174}
+  m_LocalRotation: {x: 0.23519197, y: 0.3700757, z: -0.09741972, w: 0.89344174}
   m_LocalPosition: {x: -10, y: 8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -11,6 +11,7 @@ public class InfoHex : MonoBehaviour
     public GameObject bordeIzq, bordeDer;
     public GameObject a, b, c;
     public MallaHex suelo;
+    public GameObject[] obstaculos;
 
     void TrasladarX(GameObject obj, float x_) {
         Vector3 aux = obj.transform.localPosition;
@@ -49,6 +50,19 @@ public class InfoHex : MonoBehaviour
         SetTipo(tipo);
     }
 
+    public void EscogerObstaculoRandom(int aleatorio) {
+        int cantidad = obstaculos.Length; 
+        if (cantidad > 0) {
+            aleatorio = aleatorio%cantidad;
+            int i=0;
+            while (i < aleatorio)
+                obstaculos[i++].SetActive(false);
+            obstaculos[i++].SetActive(true);  // aquí i es igual a aleatorio
+            while (i < cantidad)
+                obstaculos[i++].SetActive(false);
+        }
+    }
+
     public void SetTipo(string t){
         //Debug.Log("Set tipo '" + t + "' en recta");
 
@@ -77,14 +91,19 @@ public class InfoHex : MonoBehaviour
 
     public void Eliminar() {
 
-        if (!izq.activeInHierarchy)  Destroy(izq);     // Destruir las paredes
-        if (!der.activeInHierarchy)  Destroy(der);     
-        if (!bordeIzq.activeInHierarchy)  Destroy(bordeIzq);     // Destruir las paredes
-        if (!bordeDer.activeInHierarchy)  Destroy(bordeDer);     
+        if (!izq.activeInHierarchy)         Destroy(izq);           // Destruir las paredes
+        if (!der.activeInHierarchy)         Destroy(der);     
+        if (!bordeIzq.activeInHierarchy)    Destroy(bordeIzq);      // Destruir las paredes
+        if (!bordeDer.activeInHierarchy)    Destroy(bordeDer);     
 
         if (a != null) Destroy(a);                     // Destruir los tipos de apoyo
         if (b != null) Destroy(b);     
         if (c != null) Destroy(c);    
+
+        for (int i = 0; i < obstaculos.Length; ++i) {
+            if (!obstaculos[i].activeSelf)
+                Object.Destroy(obstaculos[i]);
+        }
 
         Destroy(this);                                 // Destruir el componente de la vía
 
