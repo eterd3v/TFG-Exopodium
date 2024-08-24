@@ -8,8 +8,6 @@ using UnityEngine.Localization.Settings;
 
 public class MainManager : MonoBehaviour {
 
-    public bool completado = false;
-
     public static MainManager instance;
 
     public PlayerLogic playerLogic;
