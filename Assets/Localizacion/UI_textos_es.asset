@@ -17,7 +17,43 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: d34c675d3cb5d7448ac99b2e5d324353, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1167793242652672
+    m_Localized: REANUDAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1167976911224832
+    m_Localized: Opciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1168233233530880
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1169072597647360
+    m_Localized: Volver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1169301342404608
+    m_Localized: Texto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1170784779649024
+    m_Localized: Ingles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171343561605120
+    m_Localized: ''''
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171501632339968
+    m_Localized: Espanol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171719606124544
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

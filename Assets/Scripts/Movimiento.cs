@@ -46,6 +46,8 @@ public class NaveMovimiento : MonoBehaviour {
     [SerializeField]
     float qInputPercentage = 0.8f;
 
+    [SerializeField]
+    ParticleSystem particulas = null;
 
     float lastQInput=0f;
     float pBlend=0f;
@@ -63,6 +65,15 @@ public class NaveMovimiento : MonoBehaviour {
 
         pBlend = Mathf.Clamp01(pBlend);
         cam0.m_Lens = LensSettings.Lerp(lenteMin, lenteMax, pBlend); // Interpola entre la configuración de la lente
+
+        if (particulas != null) {
+            if (pBlend > 0.65f && !particulas.isPlaying)
+                particulas.Play();
+            else if (pBlend < 0.66f && particulas.isPlaying){
+                particulas.Stop();
+            }
+        }
+
 
         // Actualizar variables
         lastQInput = qInput;
