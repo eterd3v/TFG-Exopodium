@@ -29,7 +29,16 @@
                     "id": "75c9f773-393c-4b8b-848b-be9e45fcc6ec",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Descender",
+                    "type": "Button",
+                    "id": "7b0e14da-2152-4f2f-82c7-7d3424de54da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -136,11 +145,33 @@
                 {
                     "name": "",
                     "id": "6301afdc-baf7-45a5-a36b-212dc44934c8",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Elevar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d325030-37c9-445e-817a-099d03ea358f",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e94034b-3742-4733-ac4e-d255dee1bfb5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Descender",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -82,10 +82,13 @@ public class GenerarCircuitoHex : MonoBehaviour {
         // Difícil -> Más fácil que aparezcan obstáculos
         // Inversamente proporcional
 
-        bool probabilidadAceptada = 
-            ((double) (maxDificultad-dificultad) / (double) (maxDificultad+1)) < rand.NextDouble();
+        double p = ((double) (maxDificultad-dificultad) / (double) (maxDificultad+1));
 
-        if (probabilidadAceptada) {
+        /*  !!!!
+            Incluir aquí Modificadores para los obstáculos 
+        */
+
+        if (p < rand.NextDouble()) {
             int dado = rand.Next();
             if (dado < 0)
                 dado = -dado;

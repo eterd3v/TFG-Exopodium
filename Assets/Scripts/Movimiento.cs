@@ -21,11 +21,15 @@ public class NaveMovimiento : MonoBehaviour {
     private LensSettings lenteMax,lenteMin;
     private float fovOrtoMax,fovOrtoMin;
 
-    // Start is called before the first frame update
+    InputAction ioMoverse, ioRotar;
+
     void Start() {
         rb = GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
         rb.freezeRotation = true;
+
+        playerInput = GetComponent<PlayerInput>();
+        ioMoverse = playerInput.actions["Moverse"];
+        ioRotar = playerInput.actions["Rotar"];
 
         lenteMax = lenteMin = (LensSettings)cam0.m_Lens;
         lenteMin.OrthographicSize = lenteMax.OrthographicSize * 0.85f;
@@ -33,8 +37,8 @@ public class NaveMovimiento : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        inputMoverse =  playerInput.actions["Moverse"].ReadValue<Vector2>();
-        inputRotar =    playerInput.actions["Rotar"].ReadValue<Vector2>();
+        inputMoverse =  ioMoverse.ReadValue<Vector2>();
+        inputRotar =    ioRotar.ReadValue<Vector2>();
         rb.maxLinearVelocity = maxVelocidad;
         InterpolarCamara();
     }
@@ -67,13 +71,12 @@ public class NaveMovimiento : MonoBehaviour {
         cam0.m_Lens = LensSettings.Lerp(lenteMin, lenteMax, pBlend); // Interpola entre la configuración de la lente
 
         if (particulas != null) {
-            if (pBlend > 0.65f && !particulas.isPlaying)
+            if (pBlend > 0.66f && !particulas.isPlaying)
                 particulas.Play();
             else if (pBlend < 0.66f && particulas.isPlaying){
                 particulas.Stop();
             }
         }
-
 
         // Actualizar variables
         lastQInput = qInput;
@@ -102,7 +105,7 @@ public class NaveMovimiento : MonoBehaviour {
     }
     */
 
-    public void Saltar() {
+    public void Saltarr() {
         if (this.transform.position.y <= 10.0f)
             rb.AddForce(Vector3.up * fuerzaSalto);
     }
