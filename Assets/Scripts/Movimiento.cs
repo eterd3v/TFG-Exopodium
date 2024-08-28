@@ -21,7 +21,7 @@ public class NaveMovimiento : MonoBehaviour {
     private LensSettings lenteMax,lenteMin;
     private float fovOrtoMax,fovOrtoMin;
 
-    InputAction ioMoverse, ioRotar;
+    InputAction ioMoverse, ioRotar, ioElevar, ioDescender;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -30,6 +30,8 @@ public class NaveMovimiento : MonoBehaviour {
         playerInput = GetComponent<PlayerInput>();
         ioMoverse = playerInput.actions["Moverse"];
         ioRotar = playerInput.actions["Rotar"];
+        ioElevar = playerInput.actions["Elevar"];
+        ioDescender = playerInput.actions["Descender"];
 
         lenteMax = lenteMin = (LensSettings)cam0.m_Lens;
         lenteMin.OrthographicSize = lenteMax.OrthographicSize * 0.85f;
@@ -83,9 +85,17 @@ public class NaveMovimiento : MonoBehaviour {
     }
 
     public Vector3 rotNave;
-
+    [SerializeField]
+    float limiteAlturaTecho = 10f, limiteAlturaSuelo = 0f;
     void FixedUpdate() {    // Puede ejecutarse más de una vez por frame
-        Vector3 direccion = new Vector3(inputMoverse.y, 0.0f, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
+        
+        float vertical = ioElevar.ReadValue<float>() - ioDescender.ReadValue<float>();
+        bool cond1 = (vertical < 0f && this.transform.position.y <= limiteAlturaSuelo + Mathf.Epsilon);
+        bool cond2 = (vertical > 0f && this.transform.position.y >= limiteAlturaTecho - Mathf.Epsilon);
+        if (cond1 || cond2)
+            vertical = 0f;
+
+        Vector3 direccion = new Vector3(inputMoverse.y, vertical, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
         
         rb.AddRelativeForce( direccion * cteVelocidad );
 

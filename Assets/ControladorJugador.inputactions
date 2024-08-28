@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DashIzq",
+                    "type": "Button",
+                    "id": "2de6bdf7-c217-4aa9-81b8-36b721dd548c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -49,14 +58,14 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "",
+                    "groups": "Mando",
                     "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "2D Vector",
-                    "id": "0cd0dca9-e059-49a5-be41-3c6a48e31360",
+                    "id": "cf80a128-3180-4fa7-bf8f-5d2a9457032e",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -67,58 +76,47 @@
                 },
                 {
                     "name": "up",
-                    "id": "abd13680-3cd1-4803-b84b-b0d15d2cc8eb",
+                    "id": "4e6ca7dd-fd6b-4868-aed7-c4e82aefed32",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Teclado y raton",
                     "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "abc9f537-e984-4e67-b3ae-51cffdabf838",
+                    "id": "a252896f-6681-483f-bfee-75ca212629bd",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Teclado y raton",
                     "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "ae52637e-0945-46f9-907e-d25165311588",
+                    "id": "d7e73dcc-6f85-43f8-b83e-e9f6862175ad",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Teclado y raton",
                     "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "aedc259d-5c9e-4077-9d4f-de17c7201acc",
+                    "id": "57f55cae-9364-4e39-b1ef-b315252e7dcc",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Teclado y raton",
                     "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "6f7ab71e-851e-4d98-92ba-fa2eec0015ab",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -126,57 +124,96 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mando",
                     "action": "Rotar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ef5da89a-d3e8-4ff7-b1b8-cf1aa0b903a7",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Elevar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6301afdc-baf7-45a5-a36b-212dc44934c8",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mando",
                     "action": "Elevar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1d325030-37c9-445e-817a-099d03ea358f",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
+                    "id": "9d077e0b-fdec-46b1-9c62-3c6787b352b4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
-                    "action": "Descender",
+                    "groups": "Teclado y raton",
+                    "action": "Elevar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "7e94034b-3742-4733-ac4e-d255dee1bfb5",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mando",
                     "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00626d3a-6f31-45c7-99f0-3b552aea136e",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b97f3db-ca5b-4c2c-82c3-13652a78ec28",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "DashIzq",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Mando",
+            "bindingGroup": "Mando",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Teclado y raton",
+            "bindingGroup": "Teclado y raton",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
