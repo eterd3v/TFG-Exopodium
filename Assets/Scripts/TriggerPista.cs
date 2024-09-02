@@ -15,7 +15,7 @@ public class TriggerPista : MonoBehaviour
 
 
     static public float segundosCambio = 0.74f; // Segundos
-    public NaveMovimiento nm = null; 
+    public NaveMovimiento nm = null;
     Vector3 rotacion = Vector3.zero;
 
     public void setRotacion(Vector3 rot) {

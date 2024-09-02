@@ -12,6 +12,9 @@ public class SeguirXZ : MonoBehaviour
     private Transform este;
     public Transform objetivo;
 
+    [SerializeField]
+    bool seguirRotacion = false;
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -21,6 +24,9 @@ public class SeguirXZ : MonoBehaviour
             pos.x = objPos.x;
             pos.z = objPos.z;
             este.position = pos;
+            if (seguirRotacion) {
+                este.localRotation = objetivo.localRotation;
+            }
         }
     }
 }
