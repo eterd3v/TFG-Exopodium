@@ -54,6 +54,26 @@ MonoBehaviour:
     m_Localized: '-'
     m_Metadata:
       m_Items: []
+  - m_Id: 3672107026628608
+    m_Localized: Musica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3672845190578176
+    m_Localized: efectos de sonido
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3692071536181248
+    m_Localized: "\xA1Comenzar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3696862647697408
+    m_Localized: '>> SEMILLA <<'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3702822804013056
+    m_Localized: Jugar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Rotar",
-                    "type": "Value",
-                    "id": "45304490-ef13-466f-863a-486fcaae04ed",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Elevar",
                     "type": "Button",
                     "id": "75c9f773-393c-4b8b-848b-be9e45fcc6ec",
@@ -42,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DashIzq",
+                    "name": "Pausar",
                     "type": "Button",
                     "id": "2de6bdf7-c217-4aa9-81b8-36b721dd548c",
                     "expectedControlType": "Button",
@@ -119,15 +110,125 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "03deafdc-0af0-4323-aadf-6a413c629847",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moverse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "49191201-96c0-4686-bd97-5ef4cf4a2fdf",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "adc7b9a6-110d-42c5-8019-f120ffe06f58",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "4b30127b-1277-4f4e-b09b-4df2c4689053",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "1e60c24b-8647-492b-8601-e1655e141919",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "47ecc14b-a3a9-4dda-b32a-3b7e52443f79",
+                    "id": "da08b146-0029-49b8-aa61-bf5a1e2af1ee",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mando",
-                    "action": "Rotar",
+                    "action": "Moverse",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "1ec8de23-8844-4b57-9498-a0c05abd0ef8",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moverse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ca3ea76a-693a-450e-aa54-a02555c127cc",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3c5f238e-281c-4c34-af0a-cc3fc826fc9a",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f3fac891-dfd5-4ee3-b63e-680bb9b53901",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "631f9f90-4400-4fca-9e81-cda3ad49a653",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -153,6 +254,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bf8863a1-b5ed-430f-8130-dffa4250b2a5",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Elevar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7e94034b-3742-4733-ac4e-d255dee1bfb5",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "Press",
@@ -165,7 +277,7 @@
                 {
                     "name": "",
                     "id": "00626d3a-6f31-45c7-99f0-3b552aea136e",
-                    "path": "<Keyboard>/rightShift",
+                    "path": "<Keyboard>/shift",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Teclado y raton",
@@ -175,12 +287,84 @@
                 },
                 {
                     "name": "",
+                    "id": "38b04c89-e85b-4d7b-993f-40b7280dd057",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2b97f3db-ca5b-4c2c-82c3-13652a78ec28",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/start",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Mando",
-                    "action": "DashIzq",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2261f86-caf4-4a67-8ef4-2aae6955e305",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b949fa35-6bc4-43fb-8a6d-3054e96c1887",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14e4ee7b-4955-4aee-be43-2e548a85eeba",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "d071661a-aeaf-4357-aabe-a764eccfd27c",
+            "actions": [
+                {
+                    "name": "SubirSlider",
+                    "type": "Button",
+                    "id": "976435e6-84aa-47eb-b871-4e93b8902dd7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "febef5ec-5432-43b9-9042-1a65cc2b722c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "SubirSlider",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -8,7 +8,7 @@ public class NaveMovimiento : MonoBehaviour {
 
     Rigidbody rb;
     PlayerInput playerInput;
-    Vector2 inputMoverse, inputRotar;
+    Vector2 inputMoverse;
 
     public float cteVelocidad = 5.0f;
     public float maxVelocidad = 15.0f;
@@ -19,15 +19,16 @@ public class NaveMovimiento : MonoBehaviour {
     private LensSettings lenteMax,lenteMin, lenteActual;
     private float fovOrtoMax,fovOrtoMin;
 
-    InputAction ioMoverse, ioRotar, ioElevar, ioDescender;
+    InputAction ioMoverse, ioElevar, ioDescender;
 
     [SerializeField]
     Transform fondo = null;
 
     public Material parallax = null;
+    public MeshRenderer fondoParallax = null;
 
     [SerializeField]
-    float parallaxVelocity = 0.2f;
+    float parallaxVelocity = 0.2f, parallaxVelocityFondo=0.1f;
 
     [SerializeField]
     Transform parallaxIzq = null, parallaxDer = null, parallaxAuxIzq = null, parallaxAuxDer = null;
@@ -47,7 +48,6 @@ public class NaveMovimiento : MonoBehaviour {
 
         playerInput = GetComponent<PlayerInput>();
         ioMoverse = playerInput.actions["Moverse"];
-        ioRotar = playerInput.actions["Rotar"];
         ioElevar = playerInput.actions["Elevar"];
         ioDescender = playerInput.actions["Descender"];
 
@@ -56,9 +56,10 @@ public class NaveMovimiento : MonoBehaviour {
         lenteMax = lenteMin = (LensSettings)cam0.m_Lens;
         lenteMin.OrthographicSize = lenteMax.OrthographicSize * percentageLensLerp;
 
-        if (parallax != null) {
+        if (parallax != null && fondoParallax != null) {
             puntoOrigen = this.transform.position;
             parallax.mainTextureOffset = Vector2.zero;
+            fondoParallax.material.mainTextureOffset = Vector2.zero;
         }
 
         if (vehiculo != null) {
@@ -70,20 +71,23 @@ public class NaveMovimiento : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         inputMoverse =  ioMoverse.ReadValue<Vector2>();
-        inputRotar =    ioRotar.ReadValue<Vector2>();
         rb.maxLinearVelocity = maxVelocidad;
         InterpolarCamara();
         if (fondo != null) {
             Vector3 escalado = Vector3.one * 2f * lenteActual.OrthographicSize;
             escalado.x *= lenteActual.Aspect;
+            escalado.z = 1f;
             fondo.localScale = escalado;
         }
         if (parallax != null) {
             Vector3 distancias = this.transform.position - puntoOrigen;
-            Vector3 pesos = new Vector3(0.65f,0f,0.35f) * parallaxVelocity;
+            Vector3 pesos = new Vector3(0.65f,0f,0.35f);
+            distancias.y = 0f;
             distancias.x *= pesos.x;
             distancias.z *= pesos.z;
-            parallax.mainTextureOffset = new Vector2(puntoOrigen.x + distancias.x + distancias.z, 0f);
+            Vector2 uvOffset = new Vector2(puntoOrigen.x + distancias.x + distancias.z, 0f);
+            parallax.mainTextureOffset = uvOffset * parallaxVelocity;
+            fondoParallax.material.mainTextureOffset = uvOffset * parallaxVelocityFondo;
         }
     }
 

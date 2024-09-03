@@ -51,6 +51,26 @@ MonoBehaviour:
     m_Key: virulillaN
     m_Metadata:
       m_Items: []
+  - m_Id: 3672107026628608
+    m_Key: UI_musica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3672845190578176
+    m_Key: UI_SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3692071536181248
+    m_Key: Comenzar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3696862647697408
+    m_Key: semilla_placeholder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3702822804013056
+    m_Key: Jugarr
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
