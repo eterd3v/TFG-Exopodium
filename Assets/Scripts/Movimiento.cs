@@ -86,7 +86,7 @@ public class NaveMovimiento : MonoBehaviour {
             distancias.x *= pesos.x;
             distancias.z *= pesos.z;
             Vector2 uvOffset = new Vector2(puntoOrigen.x + distancias.x + distancias.z, 0f);
-            parallax.mainTextureOffset = uvOffset * parallaxVelocity;
+            CopiarMaterialOffsetNave.offsetComun = parallax.mainTextureOffset = uvOffset * parallaxVelocity; // Mejora: Asignar a la variable estática de la clase
             fondoParallax.material.mainTextureOffset = uvOffset * parallaxVelocityFondo;
         }
     }
@@ -152,7 +152,7 @@ public class NaveMovimiento : MonoBehaviour {
 
     Vector3 lerpAngulos = Vector3.zero;
     Vector3 angulosVehiculoInicial;
-    static float grados = Mathf.PI * 0.5f;
+    //static float grados = Mathf.PI * 0.5f;
     void FixedUpdate() {    // Puede ejecutarse más de una vez por frame
         
         float vertical = ioElevar.ReadValue<float>() - ioDescender.ReadValue<float>();
@@ -186,13 +186,13 @@ public class NaveMovimiento : MonoBehaviour {
                 lerpAngulos.z += lerpAngulos.z > 0.5f ? -fixedSegundos : fixedSegundos;
             }
             
-            lerpAngulos.x = Mathf.Clamp01(lerpAngulos.x);
+            lerpAngulos.x = Mathf.Clamp01(lerpAngulos.x);   // Se recortan los valores entre 0 y 1 y se actualizan
             lerpAngulos.y = Mathf.Clamp01(lerpAngulos.y);
             lerpAngulos.z = Mathf.Clamp01(lerpAngulos.z);
 
             Vector3 rotacion = Vector3.zero;
 
-            rotacion.x = Mathf.Lerp(minAngulosVehiculo.x,maxAngulosVehiculo.x,lerpAngulos.x);  // Aquí siempre se recorta el valor entre 0 y 1 !
+            rotacion.x = Mathf.Lerp(minAngulosVehiculo.x,maxAngulosVehiculo.x,lerpAngulos.x);
             rotacion.y = Mathf.Lerp(minAngulosVehiculo.y,maxAngulosVehiculo.y,lerpAngulos.y);
             rotacion.z = Mathf.Lerp(minAngulosVehiculo.z,maxAngulosVehiculo.z,lerpAngulos.z);
 
@@ -213,10 +213,5 @@ public class NaveMovimiento : MonoBehaviour {
         if (goCam_60.activeSelf) camPath = getCam(cam_60);
     }
     */
-
-    public void Saltarr() {
-        if (this.transform.position.y <= 10.0f)
-            rb.AddForce(Vector3.up * fuerzaSalto);
-    }
 
 }

@@ -11,22 +11,6 @@ public class UIManager : MonoBehaviour
     public int panelInicialActivo;
     public int panelOpcionEnJuego;
 
-    
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            // TODO: Se pausa el juego...
-            // y ademas...
-            cambiarPor(panelOpcionEnJuego);
-        }
-    }
-
     public void cambiarPor(int i) {
         // Debug.Log("Activo: " + panelInicialActivo + ", i: " + i);
         paneles[panelInicialActivo].SetActive(false);
@@ -36,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     public void btnJugar() {
         paneles[panelInicialActivo].SetActive(false);
+        // MainManager.instance.SwitchPausa();
         fondoUI.SetActive(false);
     }
 }

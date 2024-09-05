@@ -8,19 +8,18 @@ public class CopiarMaterialOffsetNave : MonoBehaviour
 
     Material este=null;
 
-    [SerializeField]
-    NaveMovimiento nave = null;
-
     // Start is called before the first frame update
     void Start()
     {
         este = this.GetComponent<MeshRenderer>().material;
     }
 
-    // Update is called once per frame
+    // Mejora
+
+    public static Vector2 offsetComun = Vector2.zero;
+
     void Update()
     {
-        if (nave != null && este != null)
-            este.mainTextureOffset = nave.parallax.mainTextureOffset;
+        este.mainTextureOffset = offsetComun;
     }
 }

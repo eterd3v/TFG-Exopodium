@@ -48,7 +48,6 @@ public class MainManager : MonoBehaviour {
     }
 
     public void LoadReset() {
-        currentLevel = 0;
         LoadSceneIndex(currentLevel);
     }
 
@@ -64,28 +63,6 @@ public class MainManager : MonoBehaviour {
     void Update()
     {
         
-    }
-
-    public void restaSalud(float damage) {
-        playerLogic.applyIncrease(0, damage);
-    }
-
-    public void restaCordura(float damage) {
-        playerLogic.applyIncrease(2, damage);
-    }
-
-    public float getCordura() {
-        return playerLogic.getReal(2);
-    }
-
-    public bool canRun() {
-        if (playerLogic.isZero(1))
-        {
-            return false;
-        }
-        else {
-            return true;
-        }
     }
 
     public void SeleccionarIdioma(string str) {
