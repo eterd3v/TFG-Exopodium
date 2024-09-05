@@ -8,6 +8,9 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
     public NaveMovimiento nave;
 
+    // PIEZA A COLOCAR EN EL FINAL
+    public GameObject finalHex;
+
     // PREFABS A USAR
     public GameObject prefHex;
 
@@ -84,8 +87,8 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
         double p = ((double) (maxDificultad-dificultad) / (double) (maxDificultad+1));
 
-        /*  !!!!
-            Incluir aquí Modificadores para los obstáculos 
+        /*  
+            Se incluirían aquí Modificadores para los obstáculos 
         */
 
         if (p < rand.NextDouble()) {
@@ -114,6 +117,8 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
         // Generar una primera via para el correcto funcionamiento del algoritmo (vias[i-1])
         generaVia(x_z, 0.0f, tipo, ref iHex);
+        iHex.SinObstaculos();
+        iHex.Eliminar();
         iLastHex  = iHex;
 
         for (int i = 1; i < viasGenerar - 1; ++i) {
@@ -133,10 +138,9 @@ public class GenerarCircuitoHex : MonoBehaviour {
             iLastHex = iHex;
         }
 
-        x_z = vias[viasGenerar-2].transform.Find(tipo).position; // IMPORTANTE, usa el tipo de la última iteracion del bucle
+        x_z = vias[viasGenerar-2].transform.Find("a").position; // IMPORTANTE, usa el tipo de la última iteracion del bucle
         generaFinal(x_z, rotacion); // Situa el último prefab en vias[viasGenerar-1]
 
-        iHex.Eliminar();            // Este sería realmente ahora, un iLastHex, ya que está fuera del bucle
     }
 
     void xyzNuevaVia(ref Vector3 x_z, ref float rotacion, ref string tipo, ref string lastTipoCurva, bool curva, Transform lastVia ){
@@ -159,8 +163,6 @@ public class GenerarCircuitoHex : MonoBehaviour {
                 lastTipoCurva = tipo;
         }
     }
-
-
 
     void coincidirParedes(string tipo,InfoHex iHex, InfoHex iLastHex ){
         iLastHex.SetTipo(tipo == "b" ? "c" : "b"); // La anterior será una via distinta a la actual. b o c 
@@ -189,18 +191,12 @@ public class GenerarCircuitoHex : MonoBehaviour {
     }
 
     void generaFinal(Vector3 x_z, float y_) {
-        GameObject nuevaVia = Instantiate(prefHex, transformReferencia);
-
-        InfoHex iHex = GetHex(nuevaVia);
-        iHex.tPista.setRotacion(new Vector3(0,y_,0));
-
-        nuevaVia.name = "VFinal";
-        nuevaVia.transform.SetParent(this.transform);
-        nuevaVia.transform.Translate(x_z.x, 0 ,x_z.z); // El +10 es por la última via recta del bucle
-        nuevaVia.transform.Rotate(0,y_,0);
-        nuevaVia.isStatic = true;
-        vias.Add(nuevaVia);
-        tVias.Add(iHex.tPista);
+        finalHex.transform.localPosition = Vector3.zero; 
+        finalHex.transform.SetParent(this.transform);
+        finalHex.transform.Translate(x_z);                      // Primero: traslación
+        finalHex.transform.Rotate(Vector3.up, y_, Space.Self);  // Segundo: rotación sobre sí mismo en el eje Y
+        finalHex.isStatic = true;
+        vias.Add(finalHex);
     }
 
     void pickVia(int i, ref bool eleccion, ref bool curva, bool lastEleccion) {

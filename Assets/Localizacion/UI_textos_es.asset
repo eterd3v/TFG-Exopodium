@@ -74,6 +74,10 @@ MonoBehaviour:
     m_Localized: Jugar
     m_Metadata:
       m_Items: []
+  - m_Id: 4687744469450752
+    m_Localized: "\xA1YA!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

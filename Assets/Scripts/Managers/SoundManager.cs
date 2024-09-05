@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
 
 	// Componentes de reproductores de audio
-	public AudioSource FuenteDialogos;
 	public AudioSource FuenteEfectos;
 	public AudioSource FuenteMusica;
 
@@ -21,7 +20,6 @@ public class SoundManager : MonoBehaviour {
 
     public void inicializar() {
 		if (instancia != null) {    // Singleton
-			SoundManager.instancia.FuenteDialogos = this.FuenteDialogos;
 			SoundManager.instancia.FuenteMusica = this.FuenteMusica;
 			SoundManager.instancia.FuenteEfectos = this.FuenteEfectos;
             Destroy(gameObject);
@@ -72,17 +70,5 @@ public class SoundManager : MonoBehaviour {
 		FuenteEfectos.Play();
 	}
 
-	public void RandomSoundDialogue(params AudioClip[] clips) {	// Con FuenteDialogos
-		int randomIndex = Random.Range(0, clips.Length);
-		float randomPitch = Random.Range(LowPitchRange, HighPitchRange);
-
-		FuenteDialogos.pitch = randomPitch == null ? 1.0f : randomPitch;
-		FuenteDialogos.clip = clips[randomIndex];
-		FuenteDialogos.Play();
-	}
-	
-	private void OnDestroy() { // SE EJECUTA LO ÚLTIMO
-		
-	}
 
 }

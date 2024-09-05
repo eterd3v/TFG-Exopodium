@@ -50,6 +50,15 @@ public class InfoHex : MonoBehaviour
         SetTipo(tipo);
     }
 
+    public void SinObstaculos(){
+        int cantidad = obstaculos.Length; 
+        if (cantidad > 0) {
+            for (int i = 0; i < cantidad; ++i) {
+                obstaculos[i].SetActive(false);
+            }
+        }
+    }
+
     public void EscogerObstaculoRandom(int aleatorio) {
         int cantidad = obstaculos.Length; 
         if (cantidad > 0) {

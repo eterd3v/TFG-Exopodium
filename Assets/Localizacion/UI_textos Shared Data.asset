@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: Jugarr
     m_Metadata:
       m_Items: []
+  - m_Id: 4687744469450752
+    m_Key: ya_pistoletazo_salida
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
