@@ -75,6 +75,22 @@ MonoBehaviour:
     m_Key: ya_pistoletazo_salida
     m_Metadata:
       m_Items: []
+  - m_Id: 5189242412482560
+    m_Key: limpiar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5189292198871040
+    m_Key: cargar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190052508745728
+    m_Key: dificil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190705712873472
+    m_Key: facil
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

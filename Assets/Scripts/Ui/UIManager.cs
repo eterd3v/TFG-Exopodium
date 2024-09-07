@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
     public GameObject[] paneles;
     public GameObject fondoUI;
     public int panelInicialActivo;
-    public int panelOpcionEnJuego;
 
     public void cambiarPor(int i) {
         // Debug.Log("Activo: " + panelInicialActivo + ", i: " + i);
@@ -18,9 +17,17 @@ public class UIManager : MonoBehaviour
         panelInicialActivo = i;
     }
 
-    public void btnJugar() {
-        paneles[panelInicialActivo].SetActive(false);
-        // MainManager.instance.SwitchPausa();
-        fondoUI.SetActive(false);
+    public void DesactivarTodo() {
+        for (int i = 0; i < paneles.Length; i++)
+        {
+            paneles[i].SetActive(false);
+        }
     }
+
+    public void ActivarInicial(){
+        paneles[0].SetActive(true);
+    }
+
+    
+
 }

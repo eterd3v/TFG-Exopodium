@@ -18,7 +18,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
     public Transform  transformReferencia; 
 
     // SEMILLA PARA ALEATORIEDAD
-    public bool usarSemilla;
+    // public bool usarSemilla; => El MainManager.instance.playerData te dice si usarUnaSemilla o no
     public int semilla;
     private Random rand;
 
@@ -29,14 +29,10 @@ public class GenerarCircuitoHex : MonoBehaviour {
     private int nVia = 0;
 
     // PARÁMETROS DE GENERACIÓN
-    public int tipoGeneracion;
-    public int incrementoRectas, incrementoDiagonales;
-    public float inicioIncremento, finIncremento;
-    public int maxTramoRecta;
-    public int maxTramoDiagonal;
+    public int minTramoRecta=1, maxTramoRecta=5;
+    public int minTramoDiagonal=1, maxTramoDiagonal=5;
 
     // VARIABLES PRIVADAS PARA LA GENERACIÓN
-    private int contador;
     private int tramoRecta;
     private int tramoDiagonal;
     public int dificultad = 0; // Niveles de dificutlad: fácil(0), normal(1), dificil(2). Se podría aumentar el número de dificultades
@@ -45,18 +41,54 @@ public class GenerarCircuitoHex : MonoBehaviour {
     // VECTOR PARA MODIFICAR LAS VÍAS TRAS GENERARLAS
     InfoHex[] infoVias = null;
 
+
+    public void SetDificultad(int newDificultad){
+
+        // Asigno normal por defecto
+        dificultad = 1;
+
+        viasGenerar = 144;
+        minTramoRecta = 1;
+        maxTramoRecta = 5;
+        minTramoDiagonal = 1;
+        maxTramoDiagonal = 5;
+
+        if (newDificultad < 1) {   // Facil
+            dificultad = 0;
+
+            viasGenerar = 108;
+            maxTramoRecta = 4;
+            minTramoDiagonal = 2;
+        }else if (newDificultad > 1){ // Dificil
+            dificultad = 2;
+
+            viasGenerar = 191;
+            minTramoRecta = 2;
+            maxTramoRecta = 6;
+            maxTramoDiagonal = 4;
+        }
+
+    }
+
     // Start is called before the first frame update
     void Start() {
-        if (!usarSemilla) {
+
+        if (MainManager.instance.playerData.semillaAleatoria){
             rand = new Random();
-            semilla = rand.Next();
+            MainManager.instance.playerData.semillaCargar = this.semilla = rand.Next();
+        }else{
+            this.semilla = MainManager.instance.playerData.semillaCargar;
         }
+
         rand = new Random(semilla);
         vias = new List<GameObject>();
+
+        SetDificultad(MainManager.instance.playerData.dificultadActual);
+        
         if (maxTramoRecta <= 0)      maxTramoRecta = rand.Next(1,5);
         if (maxTramoDiagonal <= 0)   maxTramoDiagonal = rand.Next(1,5);
-        tramoRecta =    rand.Next(1, maxTramoRecta);
-        tramoDiagonal = rand.Next(1, maxTramoDiagonal);
+        tramoRecta =    rand.Next(minTramoRecta, maxTramoRecta);
+        tramoDiagonal = rand.Next(minTramoDiagonal, maxTramoDiagonal);
 
         dificultad = dificultad % maxDificultad;
         infoVias = new InfoHex[viasGenerar-2];
@@ -203,12 +235,12 @@ public class GenerarCircuitoHex : MonoBehaviour {
 
         if (eleccion) {     // recta
             if (tramoRecta-- <= 0) {
-                tramoRecta = rand.Next(1, maxTramoRecta);
+                tramoRecta = rand.Next(minTramoRecta, maxTramoRecta);
                 eleccion = rand.Next() % 2 == 0;
             }
         } else {            // diagonal
             if (tramoDiagonal-- <= 0) {
-                tramoDiagonal = rand.Next(1, maxTramoDiagonal);
+                tramoDiagonal = rand.Next(maxTramoDiagonal, maxTramoDiagonal);
                 eleccion = rand.Next() % 2 == 0;
             }
         }

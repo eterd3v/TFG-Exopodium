@@ -15,6 +15,10 @@ public class ContadorTiempoPista : MonoBehaviour {
         contadorInterfaz = this.GetComponent<TMP_Text>();
     }
 
+    public void AlternatePlay() {
+        enPlay = !enPlay;
+    }
+
     bool tiempoEnMarcha = false;
     public bool enPlay=true;
     float tiempoTranscurrido = 0f;

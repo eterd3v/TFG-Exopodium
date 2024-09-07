@@ -5,7 +5,6 @@ using UnityEngine;
 public class TriggerPista : MonoBehaviour
 {
 
-    float duracionFixed;
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +37,6 @@ public class TriggerPista : MonoBehaviour
         }
     }
 
-    void Update() {
-        duracionFixed = Time.fixedDeltaTime / Mathf.Abs(segundosCambio) + 0.01f;
-    }
 
     bool lerpRotar = false;
     float t = 0.0f;
@@ -51,7 +47,7 @@ public class TriggerPista : MonoBehaviour
             
             nm.rotNave.y = Mathf.LerpAngle(rotOriginal.y, rotacion.y, Mathf.Sin(t)); // Interpolación con un Ease senoidal
             
-            t += duracionFixed;            
+            t += Time.fixedDeltaTime / Mathf.Abs(segundosCambio) + 0.01f;;            
         
         }
 

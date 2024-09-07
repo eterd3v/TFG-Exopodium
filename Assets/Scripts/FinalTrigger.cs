@@ -7,7 +7,9 @@ public class FinalTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (animacionesUI != null){
+            animacionesUI.SetBool("salidaContador",true);
+        }
     }
 
     [SerializeField]
@@ -38,6 +40,16 @@ public class FinalTrigger : MonoBehaviour
             animacionesUI.SetBool("escenaOut",true);    // Reproduce la animación
             // Parar al jugador. Usar los mismos métodos que se usa en las pausas para detener al jugador
         }
+    }
+
+    public void SalirNivel(bool guardarTiempo){
+        once = false;                       // Para evitar problemas, que solo ocurra una vez esto
+        contador.enPlay = false;
+        // Pasar el tiempo del contador al MainManager, o donde sea, para tener el record máximo personal
+        segundosRestantesAnimacion = segundosMusicaFadeOut;
+        onceMusicaFadeOut = true;                   // Va reduciendo el volumen de la musica
+        animacionesUI.SetBool("escenaOut",true);    // Reproduce la animación
+        // Parar al jugador. Usar los mismos métodos que se usa en las pausas para detener al jugador
     }
 
     [SerializeField]

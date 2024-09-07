@@ -38,7 +38,7 @@
                     "id": "2de6bdf7-c217-4aa9-81b8-36b721dd548c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -311,7 +311,7 @@
                     "name": "",
                     "id": "a2261f86-caf4-4a67-8ef4-2aae6955e305",
                     "path": "<Gamepad>/select",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Mando",
                     "action": "Pausar",
@@ -347,24 +347,79 @@
             "id": "d071661a-aeaf-4357-aabe-a764eccfd27c",
             "actions": [
                 {
-                    "name": "SubirSlider",
+                    "name": "Pulsar",
                     "type": "Button",
-                    "id": "976435e6-84aa-47eb-b871-4e93b8902dd7",
+                    "id": "862471d3-00b5-4eff-af15-fa9ff892975e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "febef5ec-5432-43b9-9042-1a65cc2b722c",
-                    "path": "",
+                    "id": "a59c035a-9b26-4dac-9f80-91fb911350b9",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e527ac68-3068-4454-8c32-58d8699cc18a",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80ee593a-963a-4684-9cb1-9854a11d23b4",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "57b16509-bcc0-47b2-ae4c-1215099fb7bb",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "430f69da-ee63-42d1-92cb-512ab88bb027",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Teclado y raton",
-                    "action": "SubirSlider",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "677abd7b-d008-47c1-8ce7-9541e8bd101e",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pulsar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

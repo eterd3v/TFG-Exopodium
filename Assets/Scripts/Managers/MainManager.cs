@@ -10,7 +10,7 @@ public class MainManager : MonoBehaviour {
 
     public static MainManager instance;
 
-    public PlayerLogic playerLogic;
+    public PlayerData playerData;
 
     public LocalizationSettings traducciones;
 
@@ -25,6 +25,7 @@ public class MainManager : MonoBehaviour {
         }
         // end of new code
         instance = this;
+        playerData = new PlayerData();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -38,25 +39,25 @@ public class MainManager : MonoBehaviour {
         LoadSceneIndex(currentLevel);
     }
 
-    public void LoadCurrentLevelNum()
-    {
-        LoadSceneIndex(currentLevel);
-    }
-
-    public void LoadCurrentScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     public void LoadReset() {
         LoadSceneIndex(currentLevel);
     }
 
-    public void LoadSceneString(string sceneName) {
-        SceneManager.LoadScene(sceneName);
-    }
-
     public void ExitGame(){
         Application.Quit();
+    }
+
+    public void SetDificultad(int nuevaDificultad){
+        playerData.dificultadActual = nuevaDificultad;
+    }
+
+    public void SeedAleatoria(bool estado) {
+        playerData.semillaAleatoria = estado;
+    }
+
+    public void CargarSemilla(string seed){
+        Debug.Log(seed);
+        playerData.semillaCargar = int.Parse(seed);
     }
 
     // Update is called once per frame
@@ -85,9 +86,9 @@ public class MainManager : MonoBehaviour {
 
     void OnDestroy() {
         Debug.Log("Se ha destruido el objeto " + this.name + " porque ya existe " + MainManager.instance.name);
-        if (this.playerLogic != null && MainManager.instance.playerLogic!= null){
-            MainManager.instance.playerLogic.CopyValues(this.playerLogic);
+        if (this.playerData != null && MainManager.instance.playerData!= null){
+            MainManager.instance.playerData.CopyValues(this.playerData);
         }
-        MainManager.instance.playerLogic = this.playerLogic;
+        MainManager.instance.playerData = this.playerData;
     }
 }

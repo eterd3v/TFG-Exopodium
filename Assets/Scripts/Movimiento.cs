@@ -7,19 +7,16 @@ using Cinemachine; // Versión 2.9.7 !
 public class NaveMovimiento : MonoBehaviour {
 
     Rigidbody rb;
+
     PlayerInput playerInput;
-    Vector2 inputMoverse;
+    Vector2 inputMoverse; 
+    InputAction ioMoverse, ioElevar, ioDescender, ioPausar;
 
-    public float cteVelocidad = 5.0f;
-    public float maxVelocidad = 15.0f;
-    public float fuerzaSalto = 5.0f;
+    [SerializeField]
+    ContadorTiempoPista contadorTiempo = null;
 
-    public CinemachineVirtualCamera cam0;
-    private CinemachineOrbitalTransposer tipoCam0;
-    private LensSettings lenteMax,lenteMin, lenteActual;
-    private float fovOrtoMax,fovOrtoMin;
-
-    InputAction ioMoverse, ioElevar, ioDescender;
+    [SerializeField]
+    UIManager uiManager = null;
 
     [SerializeField]
     Transform fondo = null;
@@ -50,6 +47,7 @@ public class NaveMovimiento : MonoBehaviour {
         ioMoverse = playerInput.actions["Moverse"];
         ioElevar = playerInput.actions["Elevar"];
         ioDescender = playerInput.actions["Descender"];
+        ioPausar = playerInput.actions["Pausar"];
 
 
         tipoCam0 = (CinemachineOrbitalTransposer) cam0.GetCinemachineComponent(CinemachineCore.Stage.Body);
@@ -66,12 +64,75 @@ public class NaveMovimiento : MonoBehaviour {
             angulosVehiculoInicial = vehiculo.localEulerAngles;
         }
 
+        rb.maxLinearVelocity = maxVelocidad;
+
+        particulas.Pause();
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        SoundManager.instancia.FuenteMusica.Play();
+    }
+
+    bool enPausa = false;
+
+    public void Pausar() {
+        // Cosas extra que hay que hacer al pausar
+        enPausarStatus(true);
+    }
+
+    public void Reanudar() {
+        // Cosas extra que hay que hacer al reanudar
+        enPausarStatus(false);
+    }
+
+    void enPausarStatus(bool state){
+        enPausa = state;
+
+        contadorTiempo.enPlay = !enPausa;
+        controlCamara.enabled=!enPausa; // Activa o desactiva el control con la cámara
+
+        // Parar el contador
+        AudioSource musica = SoundManager.instancia.FuenteMusica;
+
+        if (enPausa) {    // Pausar aquí por llamadas lo que no se puede por asignar booleano
+            uiManager.ActivarInicial();
+            musica.Pause();
+            particulas.Pause();
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            playerInput.SwitchCurrentActionMap("UI");
+        }else{
+            uiManager.DesactivarTodo();
+            particulas.Play();
+            musica.UnPause();
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            playerInput.SwitchCurrentActionMap("Nave");
+        }
     }
 
     // Update is called once per frame
     void Update() {
-        inputMoverse =  ioMoverse.ReadValue<Vector2>();
-        rb.maxLinearVelocity = maxVelocidad;
+        if (ioPausar.IsPressed()){
+            if (enPausa){
+                Reanudar();
+            }else{
+                Pausar();
+            }
+        }
+
+        if (!enPausa){
+            inputMoverse =  ioMoverse.ReadValue<Vector2>();
+            if (parallax != null) {
+                Vector3 distancias = this.transform.position - puntoOrigen;
+                Vector3 pesos = new Vector3(0.65f,0f,0.35f);
+                distancias.y = 0f;
+                distancias.x *= pesos.x;
+                distancias.z *= pesos.z;
+                Vector2 uvOffset = new Vector2(puntoOrigen.x + distancias.x + distancias.z, 0f);
+                CopiarMaterialOffsetNave.offsetComun = parallax.mainTextureOffset = uvOffset * parallaxVelocity; // Mejora: Asignar a la variable estática de la clase
+                fondoParallax.material.mainTextureOffset = uvOffset * parallaxVelocityFondo;
+            }
+        }else if (playerInput.actions["Pulsar"].IsPressed() ){
+            Reanudar();
+        }
+
         InterpolarCamara();
         if (fondo != null) {
             Vector3 escalado = Vector3.one * 2f * lenteActual.OrthographicSize;
@@ -79,18 +140,14 @@ public class NaveMovimiento : MonoBehaviour {
             escalado.z = 1f;
             fondo.localScale = escalado;
         }
-        if (parallax != null) {
-            Vector3 distancias = this.transform.position - puntoOrigen;
-            Vector3 pesos = new Vector3(0.65f,0f,0.35f);
-            distancias.y = 0f;
-            distancias.x *= pesos.x;
-            distancias.z *= pesos.z;
-            Vector2 uvOffset = new Vector2(puntoOrigen.x + distancias.x + distancias.z, 0f);
-            CopiarMaterialOffsetNave.offsetComun = parallax.mainTextureOffset = uvOffset * parallaxVelocity; // Mejora: Asignar a la variable estática de la clase
-            fondoParallax.material.mainTextureOffset = uvOffset * parallaxVelocityFondo;
-        }
     }
 
+    [SerializeField]
+    CinemachineInputProvider controlCamara = null;
+    public CinemachineVirtualCamera cam0;
+    private CinemachineOrbitalTransposer tipoCam0;
+    private LensSettings lenteMax,lenteMin, lenteActual;
+    private float fovOrtoMax,fovOrtoMin;
     [SerializeField]
     float percentageLensLerp = 0.85f;
     [SerializeField]
@@ -121,7 +178,7 @@ public class NaveMovimiento : MonoBehaviour {
         lenteActual = LensSettings.Lerp(lenteMin, lenteMax, pBlend); // Interpola entre la configuración de la lente
         cam0.m_Lens = lenteActual;
 
-        if (particulas != null) {
+        if (particulas != null && !enPausa) {
             if (pBlend > 0.66f && !particulas.isPlaying)
                 particulas.Play();
             else if (pBlend < 0.66f && particulas.isPlaying){
@@ -140,7 +197,9 @@ public class NaveMovimiento : MonoBehaviour {
         lastQInput = qInput;
     }
 
-    public Vector3 rotNave;
+    public Vector3 rotNave; // Rotación indicada por las piezas a través de otro script. No borrar
+    public float cteVelocidad = 5.0f;
+    public float maxVelocidad = 15.0f;
     [SerializeField]
     float umbralMovimientoVehiculo=0.3333f;
     [SerializeField]
@@ -154,64 +213,53 @@ public class NaveMovimiento : MonoBehaviour {
     Vector3 angulosVehiculoInicial;
     //static float grados = Mathf.PI * 0.5f;
     void FixedUpdate() {    // Puede ejecutarse más de una vez por frame
-        
-        float vertical = ioElevar.ReadValue<float>() - ioDescender.ReadValue<float>();
-        Vector3 direccion = new Vector3(inputMoverse.y, vertical, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
-        rb.AddRelativeForce( direccion * cteVelocidad );
-        this.transform.localEulerAngles = rotNave;
+        if (!enPausa) {
+            float vertical = ioElevar.ReadValue<float>() - ioDescender.ReadValue<float>();
+            Vector3 direccion = new Vector3(inputMoverse.y, vertical, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
+            rb.AddRelativeForce( direccion * cteVelocidad );
+            this.transform.localEulerAngles = rotNave;
 
-        if (vehiculo != null){
+            if (vehiculo != null){
 
-            float fixedSegundos = Time.fixedDeltaTime/segundosLerpMovimientoVehiculo;
+                float fixedSegundos = Time.fixedDeltaTime/segundosLerpMovimientoVehiculo;
 
-            if (inputMoverse.x < -umbralMovimientoVehiculo){
-                lerpAngulos.x += fixedSegundos;
-            }else if (inputMoverse.x > umbralMovimientoVehiculo) {
-                lerpAngulos.x -= fixedSegundos;
-            }else if (!Mathf.Approximately(lerpAngulos.x,0.5f)) {
-                lerpAngulos.x += lerpAngulos.x > 0.5f ? -fixedSegundos : fixedSegundos;
+                if (inputMoverse.x < -umbralMovimientoVehiculo){
+                    lerpAngulos.x += fixedSegundos;
+                }else if (inputMoverse.x > umbralMovimientoVehiculo) {
+                    lerpAngulos.x -= fixedSegundos;
+                }else if (!Mathf.Approximately(lerpAngulos.x,0.5f)) {
+                    lerpAngulos.x += lerpAngulos.x > 0.5f ? -fixedSegundos : fixedSegundos;
+                }
+
+                //if (inputMoverse.y < -umbralMovimientoVehiculo){
+                //}else if (inputMoverse.y > umbralMovimientoVehiculo) {
+                //}
+
+                lerpAngulos.y = 0.5f;// + rotNave.y AVERIGUAR MAÑANA!!!
+
+                if (vertical > umbralMovimientoVehiculo){
+                    lerpAngulos.z += fixedSegundos*1.25f;
+                }else if (vertical < -umbralMovimientoVehiculo){
+                    lerpAngulos.z -= fixedSegundos*1.25f;
+                }else if (!Mathf.Approximately(lerpAngulos.z,0.5f)) {
+                    lerpAngulos.z += lerpAngulos.z > 0.5f ? -fixedSegundos : fixedSegundos;
+                }
+                
+                lerpAngulos.x = Mathf.Clamp01(lerpAngulos.x);   // Se recortan los valores entre 0 y 1 y se actualizan
+                lerpAngulos.y = Mathf.Clamp01(lerpAngulos.y);
+                lerpAngulos.z = Mathf.Clamp01(lerpAngulos.z);
+
+                Vector3 rotacion = Vector3.zero;
+
+                rotacion.x = Mathf.Lerp(minAngulosVehiculo.x,maxAngulosVehiculo.x,lerpAngulos.x);
+                rotacion.y = Mathf.Lerp(minAngulosVehiculo.y,maxAngulosVehiculo.y,lerpAngulos.y);
+                rotacion.z = Mathf.Lerp(minAngulosVehiculo.z,maxAngulosVehiculo.z,lerpAngulos.z);
+
+                vehiculo.localEulerAngles = rotacion + angulosVehiculoInicial;
             }
-
-            //if (inputMoverse.y < -umbralMovimientoVehiculo){
-            //}else if (inputMoverse.y > umbralMovimientoVehiculo) {
-            //}
-
-            lerpAngulos.y = 0.5f;// + rotNave.y AVERIGUAR MAÑANA!!!
-
-            if (vertical > umbralMovimientoVehiculo){
-                lerpAngulos.z += fixedSegundos*1.25f;
-            }else if (vertical < -umbralMovimientoVehiculo){
-                lerpAngulos.z -= fixedSegundos*1.25f;
-            }else if (!Mathf.Approximately(lerpAngulos.z,0.5f)) {
-                lerpAngulos.z += lerpAngulos.z > 0.5f ? -fixedSegundos : fixedSegundos;
-            }
-            
-            lerpAngulos.x = Mathf.Clamp01(lerpAngulos.x);   // Se recortan los valores entre 0 y 1 y se actualizan
-            lerpAngulos.y = Mathf.Clamp01(lerpAngulos.y);
-            lerpAngulos.z = Mathf.Clamp01(lerpAngulos.z);
-
-            Vector3 rotacion = Vector3.zero;
-
-            rotacion.x = Mathf.Lerp(minAngulosVehiculo.x,maxAngulosVehiculo.x,lerpAngulos.x);
-            rotacion.y = Mathf.Lerp(minAngulosVehiculo.y,maxAngulosVehiculo.y,lerpAngulos.y);
-            rotacion.z = Mathf.Lerp(minAngulosVehiculo.z,maxAngulosVehiculo.z,lerpAngulos.z);
-
-            vehiculo.localEulerAngles = rotacion + angulosVehiculoInicial;
         }
+        
 
     }
-
-/*
-    public void cambiaCam(float grados) {
-        int aux = (int) grados;
-        goCam0.SetActive(aux == 0);
-        goCam60.SetActive(aux == 60);
-        goCam_60.SetActive(aux == -60);
-
-        if (goCam0.activeSelf) camPath = getCam(cam0);
-        if (goCam60.activeSelf) camPath = getCam(cam60);
-        if (goCam_60.activeSelf) camPath = getCam(cam_60);
-    }
-    */
 
 }

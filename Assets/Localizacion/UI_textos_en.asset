@@ -78,6 +78,22 @@ MonoBehaviour:
     m_Localized: GO!
     m_Metadata:
       m_Items: []
+  - m_Id: 5189242412482560
+    m_Localized: clear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5189292198871040
+    m_Localized: upload
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190052508745728
+    m_Localized: hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190705712873472
+    m_Localized: easy
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
