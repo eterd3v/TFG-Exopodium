@@ -86,9 +86,5 @@ public class MainManager : MonoBehaviour {
 
     void OnDestroy() {
         Debug.Log("Se ha destruido el objeto " + this.name + " porque ya existe " + MainManager.instance.name);
-        if (this.playerData != null && MainManager.instance.playerData!= null){
-            MainManager.instance.playerData.CopyValues(this.playerData);
-        }
-        MainManager.instance.playerData = this.playerData;
     }
 }

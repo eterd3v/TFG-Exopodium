@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EventosAnimacionUI : MonoBehaviour
 {
+    Animator animator = null;
+
+    void Start(){
+        animator = this.GetComponent<Animator>();
+    }
+
     bool contador321Terminado = false;
 
     [SerializeField]
@@ -18,6 +24,13 @@ public class EventosAnimacionUI : MonoBehaviour
         if (nave != null && contador321Terminado){
             nave.Reanudar();
         }
+    }
+
+    public void IrMenuPrincipal() {
+        MainManager.instance.LoadSceneIndex(0);
+        animator.SetBool("salidaContador",false);
+        animator.SetBool("escenaOut",false);
+        animator.SetBool("escenaOutAlter",false);
     }
 
 }

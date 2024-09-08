@@ -22,6 +22,11 @@ public class ContadorTiempoPista : MonoBehaviour {
     bool tiempoEnMarcha = false;
     public bool enPlay=true;
     float tiempoTranscurrido = 0f;
+    public bool limpiarPantalla = false;
+
+    public void AlternateLimpiarPantalla() {
+        limpiarPantalla = !limpiarPantalla;
+    }
 
     // Update is called once per frame
     void Update() {
@@ -32,12 +37,15 @@ public class ContadorTiempoPista : MonoBehaviour {
         if (tiempoEnMarcha && enPlay){
             tiempoTranscurrido += Time.deltaTime;
             contadorInterfaz.text = sacarTiempoTranscurrido(tiempoTranscurrido);
-        } 
+        }else if (limpiarPantalla){
+            contadorInterfaz.text = "";
+        }
 
     }
 
     int iMinutos=0, iSegundos=0;
     float fMilisegundos=0f;
+
 
     public string sacarTiempoTranscurrido(float t) {
         string espaciador = " : ";

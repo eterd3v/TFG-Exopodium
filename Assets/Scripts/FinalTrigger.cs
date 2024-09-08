@@ -32,24 +32,22 @@ public class FinalTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && once) {    // solo para filtrar lo que ocurre
-            once = false;                       // Para evitar problemas, que solo ocurra una vez esto
-            contador.enPlay = false;
-            // Pasar el tiempo del contador al MainManager, o donde sea, para tener el record máximo personal
-            segundosRestantesAnimacion = segundosMusicaFadeOut;
-            onceMusicaFadeOut = true;                   // Va reduciendo el volumen de la musica
-            animacionesUI.SetBool("escenaOut",true);    // Reproduce la animación
-            // Parar al jugador. Usar los mismos métodos que se usa en las pausas para detener al jugador
+            SalirNivel(true);
         }
     }
 
     public void SalirNivel(bool guardarTiempo){
         once = false;                       // Para evitar problemas, que solo ocurra una vez esto
         contador.enPlay = false;
+
+
         // Pasar el tiempo del contador al MainManager, o donde sea, para tener el record máximo personal
+        
+        
         segundosRestantesAnimacion = segundosMusicaFadeOut;
         onceMusicaFadeOut = true;                   // Va reduciendo el volumen de la musica
-        animacionesUI.SetBool("escenaOut",true);    // Reproduce la animación
-        // Parar al jugador. Usar los mismos métodos que se usa en las pausas para detener al jugador
+        animacionesUI.SetBool(guardarTiempo ? "escenaOut" : "escenaOutAlter",true);    // Reproduce la animación
+        // Parar al jugador?
     }
 
     [SerializeField]

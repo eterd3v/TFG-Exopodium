@@ -94,6 +94,10 @@ MonoBehaviour:
     m_Localized: facil
     m_Metadata:
       m_Items: []
+  - m_Id: 5439899761524736
+    m_Localized: "\xA1linea de meta!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

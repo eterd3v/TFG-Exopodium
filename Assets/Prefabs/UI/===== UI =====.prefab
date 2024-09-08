@@ -595,6 +595,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6760151094446852739}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2165044751810547264
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +748,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SoundMixerManager, Assembly-CSharp
         m_MethodName: SetSFXVolume
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6760151094446852739}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1409,7 +1433,8 @@ MonoBehaviour:
   - {fileID: 2165044751810547264}
   fondoUI: {fileID: 0}
   panelInicialActivo: 0
-  panelOpcionEnJuego: 0
+  sliderSFX: {fileID: 4471721416155078413}
+  sliderMusica: {fileID: 8570976448369522619}
 --- !u!114 &7626693853186706433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,6 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ef71b516dc1c949bd186b024137655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nave: {fileID: 0}
 --- !u!1 &5947804205823383088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,7 +2216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1623121945002249477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2543,12 +2569,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6760151094446852739}
+    - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SeleccionarIdioma
+      value: ButtonIdioma
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MainManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -4762,12 +4792,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6760151094446852739}
+    - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SeleccionarIdioma
+      value: ButtonIdioma
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MainManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2329012525592920492, guid: 208245d92bea8de42ad0fe12f03e3b0a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

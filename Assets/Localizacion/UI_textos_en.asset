@@ -94,6 +94,12 @@ MonoBehaviour:
     m_Localized: easy
     m_Metadata:
       m_Items: []
+  - m_Id: 5439899761524736
+    m_Localized: 'Finish
+
+      line!'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData {
 
-    public Vector3 volumes = Vector3.one; // Volumenes de audio
+    public Vector2 volumes = Vector2.one; // Volumenes de audio
 
     public List<string> records = new List<string>();
     public List<int> semillas = new List<int>();

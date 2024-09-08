@@ -23,5 +23,4 @@ public class SoundMixerManager : MonoBehaviour
     private float toDecibels(float level){
         return 20.0f * Mathf.Log10(level);
     }
-
 }

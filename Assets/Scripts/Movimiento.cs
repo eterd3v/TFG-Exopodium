@@ -135,15 +135,14 @@ public class NaveMovimiento : MonoBehaviour {
 
         InterpolarCamara();
         if (fondo != null) {
-            Vector3 escalado = Vector3.one * 2f * lenteActual.OrthographicSize;
-            escalado.x *= lenteActual.Aspect;
-            escalado.z = 1f;
-            fondo.localScale = escalado;
+            float tamOrtografico = 2f* lenteActual.OrthographicSize;
+            fondo.localScale = new Vector3(tamOrtografico* mainCamera.aspect, tamOrtografico, 1f);
         }
     }
 
     [SerializeField]
     CinemachineInputProvider controlCamara = null;
+    public Camera mainCamera;
     public CinemachineVirtualCamera cam0;
     private CinemachineOrbitalTransposer tipoCam0;
     private LensSettings lenteMax,lenteMin, lenteActual;
