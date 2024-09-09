@@ -199,22 +199,26 @@ public class NaveMovimiento : MonoBehaviour {
     public Vector3 rotNave; // Rotación indicada por las piezas a través de otro script. No borrar
     public float cteVelocidad = 5.0f;
     public float maxVelocidad = 15.0f;
+
     [SerializeField]
-    float umbralMovimientoVehiculo=0.3333f;
+    float umbralMovimientoInput=0.3333f;
+
     [SerializeField]
     float segundosLerpMovimientoVehiculo=0.75f;
+
     [SerializeField]
     Transform vehiculo = null;
+
     [SerializeField]
-    Vector3 minAngulosVehiculo = Vector3.zero, maxAngulosVehiculo = Vector3.one;
+    Vector3 minAngulos = Vector3.zero, maxAngulos = Vector3.one;
 
     Vector3 lerpAngulos = Vector3.zero;
-    Vector3 angulosVehiculoInicial;
-    //static float grados = Mathf.PI * 0.5f;
-    void FixedUpdate() {    // Puede ejecutarse más de una vez por frame
+    Vector3 angulosVehiculoInicial;         // Asignado cuando se instancia el GameObject
+    void FixedUpdate() {                    // Puede ejecutarse más de una vez por frame
         if (!enPausa) {
             float vertical = ioElevar.ReadValue<float>() - ioDescender.ReadValue<float>();
-            Vector3 direccion = new Vector3(inputMoverse.y, vertical, -inputMoverse.x);     // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
+            // Coord. y del inputMoverse (stick arriba) es avanzar en la X del juego. Idem con eje Z en el juego
+            Vector3 direccion = new Vector3(inputMoverse.y, vertical, -inputMoverse.x);     
             rb.AddRelativeForce( direccion * cteVelocidad );
             this.transform.localEulerAngles = rotNave;
 
@@ -222,23 +226,19 @@ public class NaveMovimiento : MonoBehaviour {
 
                 float fixedSegundos = Time.fixedDeltaTime/segundosLerpMovimientoVehiculo;
 
-                if (inputMoverse.x < -umbralMovimientoVehiculo){
+                if (inputMoverse.x < -umbralMovimientoInput){
                     lerpAngulos.x += fixedSegundos;
-                }else if (inputMoverse.x > umbralMovimientoVehiculo) {
+                }else if (inputMoverse.x > umbralMovimientoInput) {
                     lerpAngulos.x -= fixedSegundos;
                 }else if (!Mathf.Approximately(lerpAngulos.x,0.5f)) {
                     lerpAngulos.x += lerpAngulos.x > 0.5f ? -fixedSegundos : fixedSegundos;
                 }
 
-                //if (inputMoverse.y < -umbralMovimientoVehiculo){
-                //}else if (inputMoverse.y > umbralMovimientoVehiculo) {
-                //}
+                lerpAngulos.y = 0.5f;
 
-                lerpAngulos.y = 0.5f;// + rotNave.y AVERIGUAR MAÑANA!!!
-
-                if (vertical > umbralMovimientoVehiculo){
+                if (vertical > umbralMovimientoInput){
                     lerpAngulos.z += fixedSegundos*1.25f;
-                }else if (vertical < -umbralMovimientoVehiculo){
+                }else if (vertical < -umbralMovimientoInput){
                     lerpAngulos.z -= fixedSegundos*1.25f;
                 }else if (!Mathf.Approximately(lerpAngulos.z,0.5f)) {
                     lerpAngulos.z += lerpAngulos.z > 0.5f ? -fixedSegundos : fixedSegundos;
@@ -250,9 +250,9 @@ public class NaveMovimiento : MonoBehaviour {
 
                 Vector3 rotacion = Vector3.zero;
 
-                rotacion.x = Mathf.Lerp(minAngulosVehiculo.x,maxAngulosVehiculo.x,lerpAngulos.x);
-                rotacion.y = Mathf.Lerp(minAngulosVehiculo.y,maxAngulosVehiculo.y,lerpAngulos.y);
-                rotacion.z = Mathf.Lerp(minAngulosVehiculo.z,maxAngulosVehiculo.z,lerpAngulos.z);
+                rotacion.x = Mathf.Lerp(minAngulos.x,maxAngulos.x,lerpAngulos.x);
+                rotacion.y = Mathf.Lerp(minAngulos.y,maxAngulos.y,lerpAngulos.y);
+                rotacion.z = Mathf.Lerp(minAngulos.z,maxAngulos.z,lerpAngulos.z);
 
                 vehiculo.localEulerAngles = rotacion + angulosVehiculoInicial;
             }

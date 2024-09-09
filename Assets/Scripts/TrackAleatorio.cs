@@ -18,11 +18,7 @@ public class TrackAleatorio : MonoBehaviour
             fuenteSonidos.clip = clips[rand.Next()%clips.Length];
             fuenteSonidos.Play();
         }
+        Destroy(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

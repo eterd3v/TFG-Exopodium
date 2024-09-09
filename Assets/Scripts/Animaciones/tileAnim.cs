@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class tileAnim : MonoBehaviour
-{
+public class tileAnim : MonoBehaviour {
 
     private Material mat = null;
 
@@ -15,9 +14,7 @@ public class tileAnim : MonoBehaviour
     [SerializeField]
     float velocity = 0.85f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         MeshRenderer mesh = this.GetComponent<MeshRenderer>();
         if (mesh != null){
             mat = mesh.material;
@@ -29,11 +26,10 @@ public class tileAnim : MonoBehaviour
                 }
             }
         }
+        arrayTexturas = null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (mat != null) {
             Vector2 nuevo = mat.mainTextureOffset;
             float deltaTiempo = Time.deltaTime / segundosAnimacion;

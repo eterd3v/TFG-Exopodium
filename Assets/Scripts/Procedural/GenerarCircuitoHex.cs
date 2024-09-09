@@ -211,7 +211,7 @@ public class GenerarCircuitoHex : MonoBehaviour {
         iHex = GetHex(go);
         iHex.SetTipo(tipo);
         iHex.tPista.setRotacion(new Vector3(0,y_,0));
-        iHex.tPista.nm = nave;
+        iHex.tPista.naveMovimiento = nave;
 
         go.name = "V" + nVia++;
         go.transform.SetParent(this.transform);

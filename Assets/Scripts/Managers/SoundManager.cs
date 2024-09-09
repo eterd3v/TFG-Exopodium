@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour {
 		FuenteEfectos.Play();
 	}
 
-		// Reproducir a través de la fuente de efectos.
+	// Reproducir a través de la fuente de efectos.
 	public void PlayEfectoSource(AudioClip clip, AudioSource source) {
 		source.clip = clip;
 		source.Play();
