@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_textos_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d34c675d3cb5d7448ac99b2e5d324353, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1167793242652672
+    m_Localized: RESUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1167976911224832
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1168233233530880
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1169072597647360
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1169301342404608
+    m_Localized: Text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1170784779649024
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171343561605120
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171501632339968
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1171719606124544
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3672107026628608
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3672845190578176
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3692071536181248
+    m_Localized: Start!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3696862647697408
+    m_Localized: '>> SEED <<'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3702822804013056
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4687744469450752
+    m_Localized: GO!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5189242412482560
+    m_Localized: clear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5189292198871040
+    m_Localized: load
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190052508745728
+    m_Localized: hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5190705712873472
+    m_Localized: easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5439899761524736
+    m_Localized: 'Finish
+
+      line!'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,458 @@
+{
+    "name": "ControladorJugador",
+    "maps": [
+        {
+            "name": "Nave",
+            "id": "18724645-4f7d-4765-9fad-6726324c9548",
+            "actions": [
+                {
+                    "name": "Moverse",
+                    "type": "Value",
+                    "id": "dceac30c-943e-4cfc-bf66-253c3fe33d50",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Elevar",
+                    "type": "Button",
+                    "id": "75c9f773-393c-4b8b-848b-be9e45fcc6ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Descender",
+                    "type": "Button",
+                    "id": "7b0e14da-2152-4f2f-82c7-7d3424de54da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pausar",
+                    "type": "Button",
+                    "id": "2de6bdf7-c217-4aa9-81b8-36b721dd548c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "473059c9-d760-4d3c-9a65-8b2f2509aed1",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "cf80a128-3180-4fa7-bf8f-5d2a9457032e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moverse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "4e6ca7dd-fd6b-4868-aed7-c4e82aefed32",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "a252896f-6681-483f-bfee-75ca212629bd",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d7e73dcc-6f85-43f8-b83e-e9f6862175ad",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "57f55cae-9364-4e39-b1ef-b315252e7dcc",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "03deafdc-0af0-4323-aadf-6a413c629847",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moverse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "49191201-96c0-4686-bd97-5ef4cf4a2fdf",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "adc7b9a6-110d-42c5-8019-f120ffe06f58",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "4b30127b-1277-4f4e-b09b-4df2c4689053",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "1e60c24b-8647-492b-8601-e1655e141919",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "da08b146-0029-49b8-aa61-bf5a1e2af1ee",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "1ec8de23-8844-4b57-9498-a0c05abd0ef8",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moverse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ca3ea76a-693a-450e-aa54-a02555c127cc",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3c5f238e-281c-4c34-af0a-cc3fc826fc9a",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f3fac891-dfd5-4ee3-b63e-680bb9b53901",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "631f9f90-4400-4fca-9e81-cda3ad49a653",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Moverse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6301afdc-baf7-45a5-a36b-212dc44934c8",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Elevar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d077e0b-fdec-46b1-9c62-3c6787b352b4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Elevar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf8863a1-b5ed-430f-8130-dffa4250b2a5",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Elevar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e94034b-3742-4733-ac4e-d255dee1bfb5",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00626d3a-6f31-45c7-99f0-3b552aea136e",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38b04c89-e85b-4d7b-993f-40b7280dd057",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Descender",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b97f3db-ca5b-4c2c-82c3-13652a78ec28",
+                    "path": "<Gamepad>/start",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2261f86-caf4-4a67-8ef4-2aae6955e305",
+                    "path": "<Gamepad>/select",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b949fa35-6bc4-43fb-8a6d-3054e96c1887",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14e4ee7b-4955-4aee-be43-2e548a85eeba",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pausar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "d071661a-aeaf-4357-aabe-a764eccfd27c",
+            "actions": [
+                {
+                    "name": "Pulsar",
+                    "type": "Button",
+                    "id": "862471d3-00b5-4eff-af15-fa9ff892975e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a59c035a-9b26-4dac-9f80-91fb911350b9",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e527ac68-3068-4454-8c32-58d8699cc18a",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80ee593a-963a-4684-9cb1-9854a11d23b4",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "57b16509-bcc0-47b2-ae4c-1215099fb7bb",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "430f69da-ee63-42d1-92cb-512ab88bb027",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "677abd7b-d008-47c1-8ce7-9541e8bd101e",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Teclado y raton",
+                    "action": "Pulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mando",
+            "bindingGroup": "Mando",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Teclado y raton",
+            "bindingGroup": "Teclado y raton",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
